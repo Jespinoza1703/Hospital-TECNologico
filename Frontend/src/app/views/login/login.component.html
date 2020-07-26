@@ -1,0 +1,82 @@
+<div class="container">
+<mat-tab-group dynamicHeight>
+  <mat-tab label="Login">
+    <div class="authBlock container">
+      <div class="formGroup mt-5">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" class="form-control" #email required>
+      </div>
+      <div class="formGroup mt-3">
+        <label for="loginpassword">Password</label>
+        <input id="loginpassword" type="password" class="form-control" #password required>
+      </div>
+      <!-- Calling SignIn Api from AuthenticationService -->
+      <div class="formGroup mt-5">
+        <button
+          type="button" class="btn btn-primary" value="Log in" (click)="authService.SignIn(email.value, password.value, type)">
+          Login
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Sign Up">
+    <div class="example-large-box mat-elevation-z4 mb-5">
+      <div>
+        <h2>Sign up as</h2>
+        <button class="mr-3" (click)="signInPatient()">Patient</button>
+        <button class="mr-3" (click)="signInDoctor()">Doctor</button>
+        <button (click)="signInAdmin()">Administrative Personnel</button>
+      </div>
+      <form class="example-form" name="signUpform"*ngIf="signingUp">
+        <div class="authBlock">
+
+          <mat-form-field class="example-full-width mt-2 mr-3">
+            <mat-label>Email</mat-label>
+            <input id="userEmail" matInput required #userEmail>
+          </mat-form-field>
+          <mat-form-field class="example-full-width mt-2">
+            <mat-label>Password</mat-label>
+            <input id="userPassword" matInput required #userPassword>
+          </mat-form-field>
+
+          <!-- Calling SignIn Api from AuthenticationService -->
+        </div>
+        <div *ngFor="let key of currentModel">
+          <div *ngIf="key.date || key.type; else noDateOrType">
+            <div *ngIf="key.date">
+              <mat-form-field color="accent" appearance="fill">
+                <mat-label>{{key.column}}</mat-label>
+                <input matInput [matDatepicker]="picker1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div *ngIf="key.type">
+              <div *ngIf="key.type">
+                <mat-form-field appearance="fill">
+                  <mat-label>Type</mat-label>
+                    <mat-select>
+                      <div *ngFor="let option of key.type">
+                        <mat-option value="{{option}}">{{option}}</mat-option>
+                      </div>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+            <ng-template #noDateOrType>
+              <mat-form-field class="example-full-width mt-2">
+              <mat-label>{{key.column}}</mat-label>
+              <input id="{{key.column}}" matInput required>
+              </mat-form-field>
+            </ng-template>
+        </div>
+        <button type="button" class="btn btnPrimary" (click)="authService.SignUp(userEmail.value, userPassword.value)">Submit</button>
+      </form>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
+</div>
