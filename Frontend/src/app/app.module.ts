@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AuthenticationComponent } from './helpers/authentication/authentication.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { PatientViewComponent } from './views/patient-view/patient-view.component';
 import { DoctorViewComponent } from './views/doctor-view/doctor-view.component';
@@ -20,15 +19,20 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from './services/auth.service';
+import { NavbarComponent } from './helpers/navbar/navbar.component';
+import { FooterComponent } from './helpers/footer/footer.component';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent,
     PatientViewComponent,
     DoctorViewComponent,
     AdminViewComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
