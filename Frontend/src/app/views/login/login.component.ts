@@ -24,14 +24,7 @@ export class LoginComponent implements OnInit {
   public type: any;
   loggedIn = false;
   signingUp = false;
-  signUpUser = {
-    email: '',
-    password: ''
-  };
-  signInUser = {
-    email: '',
-    password: ''
-  };
+  public documentId = null;
 
   constructor(public authService: AuthService, public router: Router ) { }
 
@@ -85,11 +78,25 @@ export class LoginComponent implements OnInit {
     return cols;
   }
 
-  signUp() {
-    this.authService.SignUp(this.signUpUser.email, this.signUpUser.password);
+
+  submit(email, password, type) {
+    this.authService.SignUp(email, password, type);
+    this.newUser(email, type);
+    console.log(this.authService.getUsersType(email));
   }
 
-  signIn() {
-      this.authService.SignIn(this.signInUser.email, this.signInUser.password, this.type);
+  public newUser(email, type) {
+      const data = {
+        email: '',
+        type: ''
+      };
+      data.email = email;
+      data.type = type;
+      this.authService.createUserAssoc(data).then(() => {
+        console.log('Documento creado exitósamente!');
+      }, (error) => {
+        console.error(error);
+      });
   }
+
 }

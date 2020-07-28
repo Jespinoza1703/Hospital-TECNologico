@@ -13,7 +13,7 @@
       <!-- Calling SignIn Api from AuthenticationService -->
       <div class="formGroup mt-5">
         <button
-          type="button" class="btn btn-primary" value="Log in" (click)="authService.SignIn(email.value, password.value, type)">
+          type="button" class="btn btn-primary" value="Log in" (click)="authService.SignIn(email.value, password.value)">
           Login
         </button>
       </div>
@@ -28,7 +28,7 @@
         <button class="mr-3" (click)="signInDoctor()">Doctor</button>
         <button (click)="signInAdmin()">Administrative Personnel</button>
       </div>
-      <form class="example-form" name="signUpform"*ngIf="signingUp">
+      <form class="example-form" name="signUpform" *ngIf="signingUp">
         <div class="authBlock">
 
           <mat-form-field class="example-full-width mt-2 mr-3">
@@ -73,7 +73,7 @@
               </mat-form-field>
             </ng-template>
         </div>
-        <button type="button" class="btn btnPrimary" (click)="authService.SignUp(userEmail.value, userPassword.value)">Submit</button>
+        <button type="button" class="btn btnPrimary" (click)="submit(userEmail.value, userPassword.value, type)">Submit</button>
       </form>
     </div>
   </mat-tab>
