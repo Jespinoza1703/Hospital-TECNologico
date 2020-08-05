@@ -1,5 +1,5 @@
 <div *ngIf="!isLoggedIn(); else loggedIn">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg ">
     <a class="navbar-brand item" href="#" routerLink="home">
       HOSPITAL TECNOLOGICO
     </a>
@@ -19,7 +19,7 @@
 
 <ng-template #loggedIn>
   <div *ngIf="isPatient()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand item" href="#" routerLink="patient-view">
         HOSPITAL TECNOLOGICO
       </a>
@@ -43,7 +43,7 @@
   </div>
 
   <div *ngIf="isDoctor()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand item" href="#" routerLink="doctor-view">
         HOSPITAL TECNOLOGICO
       </a>
@@ -63,23 +63,23 @@
     </nav>
   </div>
   <div *ngIf="isAdmin()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand item" href="#" routerLink="admin-view">
         HOSPITAL TECNOLOGICO
       </a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link item" href="#" routerLink="hospital-management">Hospital Management</a>
+            <a class="nav-link item t1" href="#" routerLink="hospital-management">Hospital Management</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item" href="#" routerLink="cotec-sync">CoTEC Synchronization</a>
+            <a class="nav-link item t1" href="#" routerLink="cotec-sync">CoTEC Synchronization</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item" href="#" routerLink="reports">Reports</a>
+            <a class="nav-link item t1" href="#" routerLink="reports">Reports</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link item" href="#" routerLink="login" (click)="authService.LogOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <a class="nav-link item t1" href="#" routerLink="login" (click)="authService.LogOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
           </li>
         </ul>
       </div>

@@ -7,9 +7,9 @@ import { AppComponent } from './app.component';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
-import { PatientViewComponent } from './views/patient-view/patient-view.component';
-import { DoctorViewComponent } from './views/doctor-view/doctor-view.component';
-import { AdminViewComponent } from './views/admin-view/admin-view.component';
+import { PatientViewComponent } from './views/patient/patient-view/patient-view.component';
+import { DoctorViewComponent } from './views/doctor/doctor-view/doctor-view.component';
+import { AdminViewComponent } from './views/admin/admin-view/admin-view.component';
 import { LoginComponent } from './views/login/login.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -22,14 +22,14 @@ import {AuthService} from './services/auth.service';
 import { NavbarComponent } from './helpers/navbar/navbar.component';
 import { FooterComponent } from './helpers/footer/footer.component';
 import { HomeComponent } from './views/home/home.component';
-import { PatientReservationComponent } from './views/patient-reservation/patient-reservation.component';
-import { PatientClinicalHistoryComponent } from './views/patient-clinical-history/patient-clinical-history.component';
-import { PatientEvaluationComponent } from './views/patient-evaluation/patient-evaluation.component';
-import { HospitalManagementComponent } from './views/hospital-management/hospital-management.component';
-import { CotecSyncComponent } from './views/cotec-sync/cotec-sync.component';
-import { ReportsComponent } from './views/reports/reports.component';
-import { PatientCreationComponent } from './views/patient-creation/patient-creation.component';
-import { ClinicalHistoryCreationComponent } from './views/clinical-history-creation/clinical-history-creation.component';
+import { PatientReservationComponent } from './views/patient/patient-reservation/patient-reservation.component';
+import { PatientClinicalHistoryComponent } from './views/patient/patient-clinical-history/patient-clinical-history.component';
+import { PatientEvaluationComponent } from './views/patient/patient-evaluation/patient-evaluation.component';
+import { HospitalManagementComponent } from './views/admin/hospital-management/hospital-management.component';
+import { CotecSyncComponent } from './views/admin/cotec-sync/cotec-sync.component';
+import { ReportsComponent } from './views/admin/reports/reports.component';
+import { PatientCreationComponent } from './views/doctor/patient-creation/patient-creation.component';
+import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-history-creation/clinical-history-creation.component';
 
 @NgModule({
   declarations: [

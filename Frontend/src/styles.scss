@@ -32,4 +32,38 @@ $Frontend-theme: mat-light-theme($Frontend-primary, $Frontend-accent, $Frontend-
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: large; background-color: #F3E2E9}
+
+/* Navbar and navbar subcomponents */
+
+.navbar{
+  background-color: #057D8A;
+}
+.navbar-brand{
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: larger;
+  &:hover {
+    color: #F9AB55;
+  }
+}
+.nav-link{
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: larger;
+  &:hover {
+    color: #F9AB55;
+  }
+}
+
+/* Buttons */
+
+.primaryBtn{
+  background-color: #F58A07;
+}
+
+/* Titles and text */
+
+.t1{
+  color: #000000;
+}
