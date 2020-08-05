@@ -82,7 +82,6 @@ export class LoginComponent implements OnInit {
   submit(email, password, type) {
     this.authService.SignUp(email, password, type);
     this.newUser(email, type);
-    console.log(this.authService.getUsersType(email));
   }
 
   public newUser(email, type) {

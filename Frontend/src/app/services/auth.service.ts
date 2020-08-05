@@ -15,6 +15,7 @@ import {IDoctor} from '../Interfaces/IDoctor';
 export class AuthService {
   user: User;
   currentLoginEmail;
+  resultType = '';
 
   emailAndType: Observable<any[]>;
 
@@ -53,12 +54,12 @@ export class AuthService {
 
   // Sign in with email/password
   async SignIn(email, password) {
-    await this.getUsersType(email);
+    const type = localStorage.getItem('type');
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        const type = localStorage.getItem('type');
         if (type === 'patient') {
           this.router.navigate(['patient-view']);
+          console.log(type);
         }
         if (type === 'admin') {
           this.router.navigate(['admin-view']);
@@ -81,15 +82,15 @@ export class AuthService {
     return this.afs.collection('items').add(data);
   }
 
-  async getUsersType(email) {
+  async getUsersType(email, password) {
     this.afs.collection('items').get().toPromise().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const documentId = doc.data();
         if (documentId.email === email) {
           this.currentLoginEmail = email;
-          const result = documentId.type.toString();
-          localStorage.setItem('type', result);
-          console.log(result);
+          this.resultType = documentId.type.toString();
+          localStorage.setItem('type', this.resultType);
+          this.SignIn(email, password);
         }
       });
     });
