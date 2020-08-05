@@ -3,12 +3,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import {auth, User} from 'firebase/app';
-import {IPatient} from '../Interfaces/IPatient';
-import {IAdmin} from '../Interfaces/IAdmin';
-import * as firebase from 'firebase';
-import {IDoctor} from '../Interfaces/IDoctor';
 import {Observable} from 'rxjs';
-import {IEmailAndType} from '../Interfaces/IEmailAndType';
+import {IAdmin} from '../Interfaces/IAdmin';
+import {IPatient} from '../Interfaces/IPatient';
+import {IDoctor} from '../Interfaces/IDoctor';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +46,6 @@ export class AuthService {
         localStorage.setItem('emailAssoc', JSON.stringify(emailAssoc));
         window.alert('You have been successfully registered!');
 
-
-
       }).catch((error) => {
         window.alert(error.message);
       });
@@ -62,15 +58,12 @@ export class AuthService {
       .then((result) => {
         const type = localStorage.getItem('type');
         if (type === 'patient') {
-          this.SetPatientData(result.user);
           this.router.navigate(['patient-view']);
         }
         if (type === 'admin') {
-          this.SetAdminData(result.user);
           this.router.navigate(['admin-view']);
         }
         if (type === 'doctor') {
-          this.SetDoctorData(result.user);
           this.router.navigate(['doctor-view']);
         }
       }).catch((error) => {
@@ -78,39 +71,6 @@ export class AuthService {
       });
   }
 
-  SetAdminData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const adminData: IAdmin = {
-      id: user.uid
-    };
-    localStorage.setItem('userData', JSON.stringify(adminData));
-    return userRef.set(adminData, {
-      merge: true
-    });
-  }
-
-  SetPatientData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const patientData: IAdmin = {
-      id: user.uid,
-    };
-    localStorage.setItem('userData', JSON.stringify(patientData));
-    return userRef.set(patientData, {
-      merge: true
-    });
-  }
-
-  SetDoctorData(user) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const doctorData: IAdmin = {
-      id: user.uid,
-
-    };
-    localStorage.setItem('userData', JSON.stringify(doctorData));
-    return userRef.set(doctorData, {
-      merge: true
-    });
-  }
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));

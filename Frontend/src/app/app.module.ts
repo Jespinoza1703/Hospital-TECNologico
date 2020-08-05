@@ -22,6 +22,14 @@ import {AuthService} from './services/auth.service';
 import { NavbarComponent } from './helpers/navbar/navbar.component';
 import { FooterComponent } from './helpers/footer/footer.component';
 import { HomeComponent } from './views/home/home.component';
+import { PatientReservationComponent } from './views/patient-reservation/patient-reservation.component';
+import { PatientClinicalHistoryComponent } from './views/patient-clinical-history/patient-clinical-history.component';
+import { PatientEvaluationComponent } from './views/patient-evaluation/patient-evaluation.component';
+import { HospitalManagementComponent } from './views/hospital-management/hospital-management.component';
+import { CotecSyncComponent } from './views/cotec-sync/cotec-sync.component';
+import { ReportsComponent } from './views/reports/reports.component';
+import { PatientCreationComponent } from './views/patient-creation/patient-creation.component';
+import { ClinicalHistoryCreationComponent } from './views/clinical-history-creation/clinical-history-creation.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,15 @@ import { HomeComponent } from './views/home/home.component';
     LoginComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    PatientReservationComponent,
+    PatientClinicalHistoryComponent,
+    PatientEvaluationComponent,
+    HospitalManagementComponent,
+    CotecSyncComponent,
+    ReportsComponent,
+    PatientCreationComponent,
+    ClinicalHistoryCreationComponent
   ],
   imports: [
     BrowserModule,
