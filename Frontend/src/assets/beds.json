@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "Number": "89564",
+      "RoomId": 1,
+      "ICU": false
+    },
+    {
+      "Number": "78564",
+      "RoomId": 2,
+      "ICU": true
+    }
+  ]
+}

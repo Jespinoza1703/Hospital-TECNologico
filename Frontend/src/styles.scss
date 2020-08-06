@@ -32,7 +32,7 @@ $Frontend-theme: mat-light-theme($Frontend-primary, $Frontend-accent, $Frontend-
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: large; background-color: #F3E2E9}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: large; background-color: #F4FFFD}
 
 /* Navbar and navbar subcomponents */
 
@@ -62,8 +62,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 
   background-color: #F58A07;
 }
 
+.secondaryBtn{
+  background-color: #99C24D;
+}
+
+.thirdBtn{
+  background-color: #7560A9;
+}
+
 /* Titles and text */
 
 .t1{
   color: #000000;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+}
+
+/* Inputs */
+.smallInput{
+  width: auto;
 }

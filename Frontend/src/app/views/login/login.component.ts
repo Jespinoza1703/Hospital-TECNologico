@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {
   MPatient,
-  MDoctor,
-  MAdmin
+  MPersonnel
 } from '../../models/AllModels';
 import {FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -19,6 +18,7 @@ export class LoginComponent implements OnInit {
   public patientSignIn = false;
   public doctorSignIn = false;
   public adminSignIn = false;
+  public nurseSignIn = false;
   public currentModel;
   public columns: any;
   public type: any;
@@ -43,31 +43,48 @@ export class LoginComponent implements OnInit {
     this.patientSignIn = true;
     this.doctorSignIn = false;
     this.adminSignIn = false;
+    this.nurseSignIn = false;
     this.type = 'patient';
     localStorage.setItem('type', this.type);
   }
   // Sign in as doctor
   signInDoctor() {
     this.signingUp = true;
-    this.currentModel = MDoctor;
+    this.currentModel = MPersonnel;
     this.columns = this.getColumns();
     this.doctorSignIn = true;
     this.adminSignIn = false;
     this.patientSignIn = false;
+    this.nurseSignIn = false;
     this.type = 'doctor';
     localStorage.setItem('type', this.type);
   }
   // Sign in as administrative personnel
   signInAdmin() {
     this.signingUp = true;
-    this.currentModel = MAdmin;
+    this.currentModel = MPersonnel;
     this.columns = this.getColumns();
     this.adminSignIn = true;
+    this.patientSignIn = false;
+    this.doctorSignIn = false;
+    this.nurseSignIn = false;
+    this.type = 'admin';
+    localStorage.setItem('type', this.type);
+  }
+
+  // Sign in as nurse
+  signInNurse() {
+    this.signingUp = true;
+    this.currentModel = MPersonnel;
+    this.columns = this.getColumns();
+    this.adminSignIn = false;
+    this.nurseSignIn = true;
     this.patientSignIn = false;
     this.doctorSignIn = false;
     this.type = 'admin';
     localStorage.setItem('type', this.type);
   }
+
 
   // Gets current columns and adds options column
   getColumns() {

@@ -30,6 +30,7 @@ import { CotecSyncComponent } from './views/admin/cotec-sync/cotec-sync.componen
 import { ReportsComponent } from './views/admin/reports/reports.component';
 import { PatientCreationComponent } from './views/doctor/patient-creation/patient-creation.component';
 import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-history-creation/clinical-history-creation.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-histor
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatTableModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

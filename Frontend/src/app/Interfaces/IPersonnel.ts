@@ -1,4 +1,4 @@
-export interface IDoctor {
+export interface IPersonnel {
   id: number;
   name: string;
   lastName: string;

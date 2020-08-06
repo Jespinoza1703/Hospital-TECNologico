@@ -1,1 +1,46 @@
-<p>patient-reservation works!</p>
+<div class="container" align="center">
+  <div class="row">
+    <div class="col mt-5">
+      <h1>
+        New Reservation
+      </h1>
+        <div *ngFor="let key of MBooking">
+          <div *ngIf="!key.FK && !key.date" >
+            <mat-form-field>
+              <mat-label>{{key.column}}</mat-label>
+              <input matInput required type="text">
+            </mat-form-field>
+            <mat-form-field class="ml-5">
+              <mat-label>Number of Procedures</mat-label>
+              <mat-select (selectionChange)="generateDropdown()">
+                <mat-option [value]="1">1</mat-option>
+                <mat-option [value]="2">2</mat-option>
+                <mat-option [value]="3">3</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="key.date">
+            <mat-form-field color="accent" appearance="fill">
+              <mat-label>{{key.column}}</mat-label>
+              <input matInput [matDatepicker]="picker1">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div *ngIf="key.FK">
+            <div class="mb-5" *ngFor="let number of numbers">
+              <mat-form-field>
+                <mat-label>{{key.column}}</mat-label>
+                <mat-select [(ngModel)]="key.column">
+                  <div *ngFor="let option of getOptionsList(key.FK)">
+                    <mat-option [value]="option">{{option}}</mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <button class="btn primaryBtn mt-3 mb-5" (click)="onSubmit()">Finish</button>
+      </div>
+  </div>
+</div>

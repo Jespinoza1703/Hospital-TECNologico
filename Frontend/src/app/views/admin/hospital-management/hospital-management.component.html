@@ -1,1 +1,59 @@
-<p>hospital-management works!</p>
+<div class="container mt-5" align="center">
+  <button class="btn primaryBtn mr-2" (click)="changeModels('rooms', MRoom)">Room</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('medicalEquipment', MMedicalEquipment)">MedicalEquipment</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('beds', MBed)">Bed</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('medicalProcedures', MMedicalProcedures)">MedicalProcedures</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('hospitalPersonnel', MPersonnel)">MPersonnel</button>
+</div>
+<div class="jumbotron customJumbotron mt-5 mb-5">
+  <h1 align="center" class="N-Primary text--blue mb-5">Administration</h1>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th *ngFor="let field of columns">{{field}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of currentData">
+      <td *ngFor="let key of currentModel">{{item[key.db]}}</td>
+      <td>
+        <button class="btn thirdBtn mr-2" (click)="onDelete(item)"><i class="icon fa fa-trash"></i></button>
+        <button class="btn secondaryBtn" (click)="onUpdate(item)"><i class="icon fa fa-edit"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button class="btn primaryBtn" (click)="onCreate()"><i class="icon fa fa-plus"></i></button>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div *ngIf="editStatus">
+          <h5>
+            Add new
+          </h5>
+          <div *ngFor="let key of currentModel">
+            <input class="form-control customInput smallInput" type="text" *ngIf="!key.FK" [(ngModel)]="currentItem[key.column]" placeholder="{{key.column}}"/>
+            <div *ngIf="key.FK">
+              <div class="mb-5">
+                <mat-form-field>
+                  <mat-label>{{key.column}}</mat-label>
+                  <mat-select [(ngModel)]="currentItem[key.column]">
+                    <div *ngFor="let option of getOptionsList(key.FK)">
+                      <mat-option [value]="option">{{option}}</mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <button class="btn primaryBtn mr-2" (click)="onClose()">Finish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

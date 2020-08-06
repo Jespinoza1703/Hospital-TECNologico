@@ -4,9 +4,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import {auth, User} from 'firebase/app';
 import {Observable} from 'rxjs';
-import {IAdmin} from '../Interfaces/IAdmin';
 import {IPatient} from '../Interfaces/IPatient';
-import {IDoctor} from '../Interfaces/IDoctor';
+import {IPersonnel} from '../Interfaces/IPersonnel';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +17,7 @@ export class AuthService {
   resultType = '';
 
   emailAndType: Observable<any[]>;
+  private authState: any;
 
   constructor(
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -25,7 +25,9 @@ export class AuthService {
     public afs: AngularFirestore
   ) {
     this.emailAndType = afs.collection('emailAndType').valueChanges();
-
+    this.afAuth.authState.subscribe( authState => {
+      this.authState = authState;
+    });
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
@@ -74,8 +76,7 @@ export class AuthService {
 
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null);
+    return (this.authState !== null);
   }
 
   public createUserAssoc(data: {email: string, type: string}) {
@@ -94,6 +95,10 @@ export class AuthService {
         }
       });
     });
+  }
+
+  async getCurrentUserEmail() {
+    return this.authState.email;
   }
 
   LogOut() {
