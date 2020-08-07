@@ -25,16 +25,14 @@
       <div>
         <h2>Sign up as</h2>
         <button class="mr-3 btn primaryBtn" (click)="signInPatient()">Patient</button>
-        <button class="mr-3 btn primaryBtn" (click)="signInDoctor()">Doctor</button>
-        <button class="mr-3 btn primaryBtn" (click)="signInNurse()">Nurse</button>
-        <button class="btn primaryBtn" (click)="signInAdmin()">Administrative Personnel</button>
+        <button class="mr-3 btn primaryBtn" (click)="signInHospitalPersonnel()">Hospital Personnel</button>
       </div>
       <form class="example-form" name="signUpform" *ngIf="signingUp">
         <div class="authBlock">
 
           <mat-form-field class="example-full-width mt-2 mr-3">
             <mat-label>Email</mat-label>
-            <input id="userEmail" matInput required #userEmail>
+            <input id="userEmail" matInput required #userEmail [(ngModel)]="currentItem.Email" [ngModelOptions]="{standalone: true}">
           </mat-form-field>
           <mat-form-field class="example-full-width mt-2">
             <mat-label>Password</mat-label>
@@ -59,7 +57,7 @@
             <div *ngIf="key.date">
               <mat-form-field color="accent" appearance="fill">
                 <mat-label>{{key.column}}</mat-label>
-                <input matInput [matDatepicker]="picker1">
+                <input matInput [matDatepicker]="picker1" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
@@ -67,20 +65,38 @@
             <div *ngIf="key.type">
               <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
-                  <mat-select>
+                  <mat-select [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
                     <div *ngFor="let option of key.type">
                       <mat-option value="{{option}}">{{option}}</mat-option>
                     </div>
                   </mat-select>
               </mat-form-field>
             </div>
+            <div *ngIf="key.pathologies" class="col">
+              <div *ngFor="let number of numbers">
+                <mat-form-field>
+                  <mat-label>{{key.pathologies}} {{number + 1}}</mat-label>
+                  <input matInput required type="text" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col" *ngIf="key.treatment">
+              <div *ngFor="let number of numbers">
+                <mat-form-field>
+                  <mat-label>{{key.treatment}} {{number + 1}}</mat-label>
+                  <input matInput required type="text" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+              </div>
+            </div>
           </div>
 
             <ng-template #noSpecials>
-              <mat-form-field class="example-full-width mt-2">
-              <mat-label>{{key.column}}</mat-label>
-              <input id="{{key.column}}" matInput required>
-              </mat-form-field>
+              <div *ngIf="!key.email">
+                <mat-form-field class="example-full-width mt-2">
+                <mat-label>{{key.column}}</mat-label>
+                <input id="{{key.db}}" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}" matInput required>
+                </mat-form-field>
+              </div>
             </ng-template>
         </div>
         <button type="button" class="btn primaryBtn mb-3" (click)="submit(userEmail.value, userPassword.value, type)">Submit</button>

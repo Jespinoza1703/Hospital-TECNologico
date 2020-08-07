@@ -1,4 +1,5 @@
 export const MPatient = [
+  {column: 'Email', db: 'Email', email: 1},
   {column: 'Identification', db: 'Id', PK: 1},
   {column: 'First Name', db: 'FirstName'},
   {column: 'Last Name', db: 'LastName'},

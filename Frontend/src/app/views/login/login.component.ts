@@ -16,9 +16,7 @@ export class LoginComponent implements OnInit {
 
   // Attributes
   public patientSignIn = false;
-  public doctorSignIn = false;
-  public adminSignIn = false;
-  public nurseSignIn = false;
+  public hospitalPersonnelSignIn = false;
   public numberOfPathologies = 1;
   public numbers = [];
   public currentModel;
@@ -26,7 +24,7 @@ export class LoginComponent implements OnInit {
   public type: any;
   loggedIn = false;
   signingUp = false;
-  public documentId = null;
+  public currentItem = null;
 
   constructor(public authService: AuthService, public router: Router ) { }
 
@@ -39,51 +37,24 @@ export class LoginComponent implements OnInit {
 
   // Sign in as patient
   signInPatient() {
-    this.signingUp = true;
     this.currentModel = MPatient;
+    this.onCreate();
+    this.signingUp = true;
     this.columns = this.getColumns();
     this.patientSignIn = true;
-    this.doctorSignIn = false;
-    this.adminSignIn = false;
-    this.nurseSignIn = false;
+    this.hospitalPersonnelSignIn = false;
     this.type = 'patient';
     localStorage.setItem('type', this.type);
   }
   // Sign in as doctor
-  signInDoctor() {
+  signInHospitalPersonnel() {
     this.signingUp = true;
     this.currentModel = MPersonnel;
+    this.onCreate();
     this.columns = this.getColumns();
-    this.doctorSignIn = true;
-    this.adminSignIn = false;
+    this.hospitalPersonnelSignIn = true;
     this.patientSignIn = false;
-    this.nurseSignIn = false;
     this.type = 'doctor';
-    localStorage.setItem('type', this.type);
-  }
-  // Sign in as administrative personnel
-  signInAdmin() {
-    this.signingUp = true;
-    this.currentModel = MPersonnel;
-    this.columns = this.getColumns();
-    this.adminSignIn = true;
-    this.patientSignIn = false;
-    this.doctorSignIn = false;
-    this.nurseSignIn = false;
-    this.type = 'admin';
-    localStorage.setItem('type', this.type);
-  }
-
-  // Sign in as nurse
-  signInNurse() {
-    this.signingUp = true;
-    this.currentModel = MPersonnel;
-    this.columns = this.getColumns();
-    this.adminSignIn = false;
-    this.nurseSignIn = true;
-    this.patientSignIn = false;
-    this.doctorSignIn = false;
-    this.type = 'admin';
     localStorage.setItem('type', this.type);
   }
 
@@ -97,10 +68,19 @@ export class LoginComponent implements OnInit {
     return cols;
   }
 
+  // Creates item
+  onCreate(): void {
+    this.currentItem = {};
+    for (const field of this.currentModel) {
+      this.currentItem[field.db] = '';
+    }
+  }
 
   submit(email, password, type) {
-    this.authService.SignUp(email, password, type);
-    this.newUser(email, type);
+    this.authService.SignUp(email, password, type).then(r => {
+      this.newUser(email, type);
+    });
+    console.log(this.currentItem);
   }
 
 
