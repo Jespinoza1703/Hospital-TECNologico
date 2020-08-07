@@ -10,7 +10,7 @@ import {IMedicalProcedures} from '../Interfaces/IMedicalProcedures';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService {
+export class GeneralService {
   private url = 'http://localhost/Anton/api/';
 
   constructor(private http: HttpClient) { }

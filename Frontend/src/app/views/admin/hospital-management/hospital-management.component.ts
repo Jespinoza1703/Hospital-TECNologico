@@ -6,7 +6,7 @@ import {
   MMedicalProcedures,
   MPersonnel
 } from '../../../models/AllModels';
-import {AdminService} from '../../../services/admin.service';
+import {GeneralService} from '../../../services/general.service';
 import {AuthService} from '../../../services/auth.service';
 
 
@@ -35,7 +35,7 @@ export class HospitalManagementComponent implements OnInit {
   public MPersonnel: any = MPersonnel;
   private data: any;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private generalService: GeneralService) { }
 
   ngOnInit(): void {
   }
@@ -43,7 +43,7 @@ export class HospitalManagementComponent implements OnInit {
   // Allows change of admin view models
   changeModels(type, model) {
     this.currentData = [];
-    this.adminService.getData(type).subscribe(data => {
+    this.generalService.getData(type).subscribe(data => {
       this.data = (data as any).data;
       this.currentData = this.data;
       this.currentModel = model;
@@ -148,7 +148,7 @@ export class HospitalManagementComponent implements OnInit {
   loadData(data, fk) {
     this.dropdownLists = [];
     const type = (fk + 'SP');
-    this.adminService.getData(type).subscribe(dropDownData => {
+    this.generalService.getData(type).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
       this.getDropDownList(this.dropdown, fk);
     });

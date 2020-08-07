@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id":123,
+      "patientEmail":"asdf@gmail.com",
+      "medicalProcedure":"cirugia nasal",
+      "date":"01/01/1999",
+      "treatment":"tecito"
+    },
+    {
+      "id":456,
+      "patientEmail":"asdf@gmail.com",
+      "medicalProcedure":"cirugia intestinal",
+      "date":"01/01/1999",
+      "treatment":"hacer popó"
+    }
+  ]
+}

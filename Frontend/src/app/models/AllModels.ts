@@ -21,13 +21,13 @@ export const MPersonnel = [
 ];
 
 export const MBooking = [
-  {column: 'Identification', db: 'Id', PK: 1},
+  {column: 'Id', db: 'Id', PK: 1},
   {column: 'Start Date', date: 1, db: 'StartDate'},
   {column: 'Procedures', FK: 1, db: 'Procedures'}
 ];
 
 export const MRoom = [
-  {column: 'Identification', db: 'Id', PK: 1},
+  {column: 'Id', db: 'Id', PK: 1},
   {column: 'Hospital Id', FK: 1, db: 'HospitalId'},
   {column: 'Name', db: 'Name'},
   {column: 'Type', db: 'Type'},
@@ -42,7 +42,7 @@ export const MMedicalEquipment = [
 ];
 
 export const MMedicalProcedures = [
-  {column: 'Identification', db: 'Id', PK: 1},
+  {column: 'Id', db: 'Id', PK: 1},
   {column: 'Name', db: 'Name'},
   {column: 'Minimum stay days', db: 'MinimumDays'},
 ];
@@ -51,4 +51,11 @@ export const MBed = [
   {column: 'Number', PK: 1, db: 'Number'},
   {column: 'ICU', db: 'ICU', type: ['yes', 'no']},
   {column: 'Room Id', db: 'RoomId', FK: 1}
+];
+
+export const MClinicalHistory = [
+  {db: 'Id', PK: 1},
+  {column: 'Medical Procedure', FK: 1, db: 'medicalProcedure'},
+  {column: 'Date', db: 'date'},
+  {column: 'Treatment', db: 'treatment'}
 ];

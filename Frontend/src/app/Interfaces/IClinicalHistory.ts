@@ -1,6 +1,6 @@
 export interface IClinicalHistory {
   position: number;
   date: string;
-  procedure: string;
+  medicalProcedure: string;
   treatment: string;
 }
