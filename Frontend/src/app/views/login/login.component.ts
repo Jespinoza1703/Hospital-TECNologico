@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   public doctorSignIn = false;
   public adminSignIn = false;
   public nurseSignIn = false;
+  public numberOfPathologies = 1;
+  public numbers = [];
   public currentModel;
   public columns: any;
   public type: any;
@@ -99,6 +101,15 @@ export class LoginComponent implements OnInit {
   submit(email, password, type) {
     this.authService.SignUp(email, password, type);
     this.newUser(email, type);
+  }
+
+
+  generateDropdown(e) {
+    this.numbers = [];
+    this.numberOfPathologies = e.value;
+    for (let i = 0; i < this.numberOfPathologies; i++) {
+      this.numbers.push(i);
+    }
   }
 
   public newUser(email, type) {

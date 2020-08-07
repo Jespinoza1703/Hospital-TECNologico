@@ -84,7 +84,9 @@ export class PatientReservationComponent implements OnInit {
     this.getDropDownList(this.dropdown, fk);
   }
 
-  generateDropdown() {
+  generateDropdown(e) {
+    this.numbers = [];
+    this.numberOfProcedures = e.value;
     for (let i = 0; i < this.numberOfProcedures; i++) {
       this.numbers.push(i);
     }

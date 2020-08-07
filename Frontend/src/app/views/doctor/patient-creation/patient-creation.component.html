@@ -1,1 +1,65 @@
-<p>patient-creation works!</p>
+<div class="container" align="center">
+  <div class="row">
+    <div class="col mt-5">
+      <h1>
+        New Reservation
+      </h1>
+      <div>
+        <mat-form-field>
+          <mat-label>Number of Pathologies</mat-label>
+          <mat-select (selectionChange)="generateDropdown($event)">
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="3">3</mat-option>
+            <mat-option [value]="4">4</mat-option>
+            <mat-option [value]="5">5</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngFor="let key of currentModel">
+        <div *ngIf="!key.FK && !key.date && !key.pathologies && !key.treatment">
+          <mat-form-field>
+            <mat-label>{{key.column}}</mat-label>
+            <input matInput required type="text">
+          </mat-form-field>
+
+        </div>
+        <div *ngIf="key.date">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>{{key.column}}</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div *ngIf="key.pathologies" class="col">
+            <div *ngFor="let number of numbers">
+              <mat-form-field>
+                <mat-label>{{key.pathologies}} {{number + 1}}</mat-label>
+                <input matInput required type="text">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col" *ngIf="key.treatment">
+            <div *ngFor="let number of numbers">
+              <mat-form-field>
+                <mat-label>{{key.treatment}} {{number + 1}}</mat-label>
+                <input matInput required type="text">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="key.FK">
+          <div class="mb-5">
+            <mat-form-field>
+              <mat-label>{{key.column}}</mat-label>
+              <input matInput required type="text">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <button class="btn primaryBtn mt-3 mb-5" (click)="onSubmit()">Finish</button>
+    </div>
+  </div>
+</div>
