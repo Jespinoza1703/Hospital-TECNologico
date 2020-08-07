@@ -60,14 +60,14 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         if (type === 'patient') {
-          this.router.navigate(['patient-view']);
+          this.router.navigate(['patient-reservation']);
           console.log(type);
         }
         if (type === 'admin') {
-          this.router.navigate(['admin-view']);
+          this.router.navigate(['hospital-management']);
         }
         if (type === 'doctor') {
-          this.router.navigate(['doctor-view']);
+          this.router.navigate(['patient-creation']);
         }
       }).catch((error) => {
         window.alert(error.message);

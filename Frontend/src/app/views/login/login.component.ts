@@ -78,12 +78,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  submit(email, password, type) {
-    this.authService.SignUp(email, password, type).then(r => {
-      this.newUser(email, type);
+  submit(email, password) {
+    this.authService.SignUp(email, password, this.currentItem.Type).then(r => {
       this.currentItem.Birthday = this.datePipe.transform(this.currentItem.Birthday, 'yyyy/MM/dd');
       this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
-      console.log(this.currentItem);
+      this.newUser(email, this.currentItem.Type);
       if (r !== undefined) {
       }
     });

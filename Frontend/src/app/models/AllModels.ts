@@ -17,7 +17,7 @@ export const MPersonnel = [
   {column: 'Last Name', db: 'LastName'},
   {column: 'Phone', db: 'Phone'},
   {column: 'Address', db: 'Address'},
-  {column: 'Type', db: 'Type', type: ['Doctor', 'Nurse', 'Admin']},
+  {column: 'Type', db: 'Type', type: ['doctor', 'nurse', 'admin']},
   {column: 'Birthday', db: 'Birthday', date: 1},
   {column: 'Institution Entry Date', db: 'StartDate', date: 1}
 ];
