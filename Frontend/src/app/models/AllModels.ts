@@ -56,6 +56,6 @@ export const MBed = [
 export const MClinicalHistory = [
   {db: 'Id', PK: 1},
   {column: 'Medical Procedure', FK: 1, db: 'medicalProcedure'},
-  {column: 'Date', db: 'date'},
-  {column: 'Treatment', db: 'treatment'}
+  {column: 'Treatment', db: 'treatment'},
+  {column: 'Date', db: 'date', date: 1}
 ];

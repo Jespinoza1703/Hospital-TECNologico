@@ -1,0 +1,38 @@
+[
+  {
+  "firstName":"",
+  "lastName":"",
+  "id":123,
+  "phone":"+506",
+  "address":"",
+  "email":"",
+  "birthDay":"01/01/1999",
+  "pathologies":[
+    {
+      "name":"ebola",
+      "treatment":"sopita"
+    },
+    {
+      "name":"covid",
+      "treatment":"caldo de posho"
+    }]
+  },
+  {
+    "firstName":"",
+    "lastName":"",
+    "id":456,
+    "phone":"+506",
+    "address":"",
+    "email":"",
+    "birthDay":"01/01/1999",
+    "pathologies":[
+      {
+        "name":"ebola",
+        "treatment":"sopita"
+      },
+      {
+        "name":"covid",
+        "treatment":"caldo de posho"
+      }]
+  }
+]

@@ -1,1 +1,50 @@
-<p>clinical-history-creation works!</p>
+<div class="container" align="center">
+  <div class="row">
+    <div class="col mt-5">
+      <h1>
+        New Clinical History
+      </h1>
+      <div>
+        <div>
+          <mat-form-field>
+            <mat-label>Patient</mat-label>
+            <mat-select>
+              <div *ngFor="let patient of patients">
+                <mat-option [value]="patient">{{patient}}</mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngFor="let key of MClinicalHistory">
+        <div *ngIf="key.column">
+          <div *ngIf="!key.FK && !key.date" >
+            <mat-form-field>
+              <mat-label>{{key.column}}</mat-label>
+              <input matInput required type="text">
+            </mat-form-field>
+          </div>
+          <div *ngIf="key.date">
+            <mat-form-field color="accent" appearance="fill">
+              <mat-label>{{key.column}}</mat-label>
+              <input matInput [matDatepicker]="picker1">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div *ngIf="key.FK">
+            <mat-form-field>
+              <mat-label>{{key.column}}</mat-label>
+              <mat-select [(ngModel)]="key.column">
+                <div *ngFor="let option of getOptionsList(key.FK)">
+                  <mat-option [value]="option">{{option}}</mat-option>
+                </div>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <button class="btn primaryBtn mt-3 mb-5" (click)="onSubmit()">Finish</button>
+    </div>
+  </div>
+</div>
