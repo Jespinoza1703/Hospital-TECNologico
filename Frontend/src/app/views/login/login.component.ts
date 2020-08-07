@@ -6,6 +6,8 @@ import {
 } from '../../models/AllModels';
 import {FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {GeneralService} from '../../services/general.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
   signingUp = false;
   public currentItem = null;
 
-  constructor(public authService: AuthService, public router: Router ) { }
+  constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe ) { }
 
   ngOnInit(): void {
     this.type = localStorage.getItem('type');
@@ -79,8 +81,12 @@ export class LoginComponent implements OnInit {
   submit(email, password, type) {
     this.authService.SignUp(email, password, type).then(r => {
       this.newUser(email, type);
+      this.currentItem.Birthday = this.datePipe.transform(this.currentItem.Birthday, 'yyyy/MM/dd');
+      this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
+      console.log(this.currentItem);
+      if (r !== undefined) {
+      }
     });
-    console.log(this.currentItem);
   }
 
 
