@@ -78,7 +78,7 @@ export class HospitalManagementComponent implements OnInit {
   // Updates or edits item
   onUpdate(item): void {
     let PK: any;
-    for (const field of this.currentModel){
+    for (const field of this.currentModel) {
       if (field.PK) {
         PK = field.column;
         break;

@@ -3,6 +3,8 @@ import {
   MBooking
 } from '../../../models/AllModels';
 import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-patient-reservation',
@@ -14,7 +16,7 @@ export class PatientReservationComponent implements OnInit {
   public MBooking: any = MBooking;
   public numberOfProcedures = 1;
   public numbers = [];
-  public currentItem: {} = null;
+  public currentItem = null;
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown = [
@@ -28,7 +30,7 @@ export class PatientReservationComponent implements OnInit {
     {Procedures: 'Amigdalectomía'}
   ];
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -37,17 +39,25 @@ export class PatientReservationComponent implements OnInit {
         this.loadData(key.FK);
       }
     }
+    this.onCreate();
   }
 
   onCreate(): void {
     this.currentItem = {};
     for (const field of MBooking) {
-      this.currentItem[field.column] = '';
+      if (field.multiple && field.column) {
+        this.currentItem[field.column] = field.db;
+      }
+      if (field.db === 'StartDate') {
+        this.currentItem[field.db] = '';
+      }
     }
   }
 
 
   onSubmit(): void {
+    this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
+    console.log(this.currentItem);
     this.authService.getCurrentUserEmail().then(r => {
       console.log(r);
     });

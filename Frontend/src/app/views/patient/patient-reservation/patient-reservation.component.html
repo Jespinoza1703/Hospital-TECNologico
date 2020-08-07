@@ -5,11 +5,13 @@
         New Reservation
       </h1>
         <div *ngFor="let key of MBooking">
-          <div *ngIf="!key.FK && !key.date" >
-            <mat-form-field>
-              <mat-label>{{key.column}}</mat-label>
-              <input matInput required type="text">
-            </mat-form-field>
+          <div *ngIf="!key.FK && !key.date">
+            <div *ngIf="key.column">
+              <mat-form-field>
+                <mat-label>{{key.column}}</mat-label>
+                <input matInput required type="text" [(ngModel)]="currentItem[key.db]">
+              </mat-form-field>
+            </div>
             <mat-form-field class="ml-5">
               <mat-label>Number of Procedures</mat-label>
               <mat-select (selectionChange)="generateDropdown($event)">
@@ -22,7 +24,7 @@
           <div *ngIf="key.date">
             <mat-form-field color="accent" appearance="fill">
               <mat-label>{{key.column}}</mat-label>
-              <input matInput [matDatepicker]="picker1">
+              <input matInput [matDatepicker]="picker1" [(ngModel)]="currentItem[key.db]">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -30,8 +32,8 @@
           <div *ngIf="key.FK">
             <div class="mb-5" *ngFor="let number of numbers">
               <mat-form-field>
-                <mat-label>{{key.column}}</mat-label>
-                <mat-select [(ngModel)]="key.column">
+                <mat-label>{{key.db[number].procedure}}</mat-label>
+                <mat-select [(ngModel)]="key.db[number].procedure">
                   <div *ngFor="let option of getOptionsList(key.FK)">
                     <mat-option [value]="option">{{option}}</mat-option>
                   </div>

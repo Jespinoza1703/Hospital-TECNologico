@@ -23,9 +23,13 @@ export const MPersonnel = [
 ];
 
 export const MBooking = [
-  {column: 'Id', db: 'Id', PK: 1},
+  {db: 'Id', PK: 1},
   {column: 'Start Date', date: 1, db: 'StartDate'},
-  {column: 'Procedures', FK: 1, db: 'Procedures'}
+  {column: 'Procedures', FK: 1, multiple: 1, db: [
+      { procedure: 'procedure' },
+      { procedure: 'procedure' },
+      { procedure: 'procedure' }
+    ]}
 ];
 
 export const MRoom = [
