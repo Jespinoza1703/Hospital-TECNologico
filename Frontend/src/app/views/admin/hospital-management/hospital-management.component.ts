@@ -25,6 +25,7 @@ export class HospitalManagementComponent implements OnInit {
   currentModel;
   editStatus = false;
   currentItem = null;
+  public currentType;
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown;
@@ -43,13 +44,12 @@ export class HospitalManagementComponent implements OnInit {
   // Allows change of admin view models
   changeModels(type, model) {
     this.currentData = [];
+    this.currentType = type;
     this.generalService.getData(type).subscribe(data => {
       this.data = (data as any).data;
       this.currentData = this.data;
       this.currentModel = model;
       this.columns = this.getColumns();
-      console.log('DATA');
-      console.log(data);
       for (const key of this.currentModel) {
         if (key.FK) {
           this.loadData(this.data, key.FK);
@@ -62,28 +62,33 @@ export class HospitalManagementComponent implements OnInit {
   // Deletes item
   onDelete(item): void {
     let PK: any;
-    for (const field of this.currentModel) {
+    for (const field of this.currentModel){
       if (field.PK) {
         PK = field.column;
         break;
       }
     }
+    this.currentItem = item;
+    // PK value
+    console.log(item[PK]);
+    // this.generalService.deleteElements(this.currentType, PKvalue);
   }
 
 
   // Updates or edits item
   onUpdate(item): void {
-    const PKs = [];
-    for (const field of this.currentModel) {
+    let PK: any;
+    for (const field of this.currentModel){
       if (field.PK) {
-        PKs.push(field.column);
+        PK = field.column;
         break;
       }
     }
     this.currentItem = item;
     this.editStatus = true;
-
-    console.log(PKs);
+    // PK value
+    console.log(item[PK]);
+    // this.generalService.editElements(this.currentType, PKvalue);
   }
 
   // Creates item

@@ -35,7 +35,17 @@
             Add new
           </h5>
           <div *ngFor="let key of currentModel">
-            <input class="form-control customInput smallInput" type="text" *ngIf="!key.FK" [(ngModel)]="currentItem[key.column]" placeholder="{{key.column}}"/>
+            <input class="form-control customInput smallInput mt-2" type="text" *ngIf="!key.FK && !key.type" [(ngModel)]="currentItem[key.column]" placeholder="{{key.column}}"/>
+            <div *ngIf="key.type" class="mt-2 mb-2">
+              <mat-form-field>
+                <mat-label>Type</mat-label>
+                <mat-select>
+                  <div *ngFor="let option of key.type">
+                    <mat-option value="{{option}}">{{option}}</mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
             <div *ngIf="key.FK">
               <div class="mb-5">
                 <mat-form-field>

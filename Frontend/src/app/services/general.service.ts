@@ -24,23 +24,23 @@ export class GeneralService {
     let observable;
     switch (type) {
       case 'Room':
-        //observable =  this.httpGet<IRoom>(type);
+        // observable =  this.httpGet<IRoom>(type);
         observable =  this.getData(type);
         break;
       case 'MedicalEquipment':
-        //observable =  this.httpGet<IMedicalEquipment>(type);
+        // observable =  this.httpGet<IMedicalEquipment>(type);
         observable =  this.getData(type);
         break;
       case 'Bed':
-        //observable =  this.httpGet<IBed>(type);
+        // observable =  this.httpGet<IBed>(type);
         observable =  this.getData(type);
         break;
       case 'MedicalProcedures':
-        //observable =  this.httpGet<IMedicalProcedures>(type);
+        // observable =  this.httpGet<IMedicalProcedures>(type);
         observable =  this.getData(type);
         break;
       case 'Personnel':
-        //observable =  this.httpGet<IPersonnel>(type);
+        // observable =  this.httpGet<IPersonnel>(type);
         observable =  this.getData(type);
         break;
       default:
@@ -50,9 +50,38 @@ export class GeneralService {
     return observable;
   }
 
+  deleteElements(type, PK): Observable<any> {
+    let observable;
+    switch (type) {
+      case 'room':
+        observable =  this.httpDelete(type, PK);
+        break;
+      case 'medicalEquipment':
+        observable =  this.httpDelete(type, PK);
+        break;
+      case 'bed':
+        observable =  this.httpDelete(type, PK);
+        break;
+      case 'medicalProcedures':
+        observable =  this.httpDelete(type, PK);
+        break;
+      case 'personnel':
+        observable =  this.httpDelete(type, PK);
+        break;
+      default:
+        observable = {};
+    }
+    return observable;
+  }
+
+
   // calls http.get() with the corresponding resource url.
   private httpGet<T>(resource: string): Observable<T> {
     return this.http.get<T>(this.url + resource);
+  }
+
+  private httpDelete<T>(resource, PK): Observable<T> {
+    return this.http.delete<T>(this.url + resource + PK);
   }
 
 }
