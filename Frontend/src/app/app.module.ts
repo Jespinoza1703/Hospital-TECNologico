@@ -31,6 +31,7 @@ import { ReportsComponent } from './views/admin/reports/reports.component';
 import { PatientCreationComponent } from './views/doctor/patient-creation/patient-creation.component';
 import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-history-creation/clinical-history-creation.component';
 import {MatTableModule} from '@angular/material/table';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import {MatTableModule} from '@angular/material/table';
     FormsModule,
     MatTableModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

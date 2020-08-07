@@ -8,7 +8,7 @@
         <div>
           <mat-form-field>
             <mat-label>Patient</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="form.patient">
               <div *ngFor="let patient of patients">
                 <mat-option [value]="patient">{{patient}}</mat-option>
               </div>
@@ -21,13 +21,13 @@
           <div *ngIf="!key.FK && !key.date" >
             <mat-form-field>
               <mat-label>{{key.column}}</mat-label>
-              <input matInput required type="text">
+              <input matInput required type="text" [(ngModel)]="form.treatment">
             </mat-form-field>
           </div>
           <div *ngIf="key.date">
             <mat-form-field color="accent" appearance="fill">
               <mat-label>{{key.column}}</mat-label>
-              <input matInput [matDatepicker]="picker1">
+              <input matInput [matDatepicker]="picker1" [(ngModel)]="form.date">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -35,7 +35,7 @@
           <div *ngIf="key.FK">
             <mat-form-field>
               <mat-label>{{key.column}}</mat-label>
-              <mat-select [(ngModel)]="key.column">
+              <mat-select [(ngModel)]="form.medicalProcedure">
                 <div *ngFor="let option of getOptionsList(key.FK)">
                   <mat-option [value]="option">{{option}}</mat-option>
                 </div>

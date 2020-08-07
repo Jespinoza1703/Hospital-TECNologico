@@ -3,6 +3,7 @@ import {
   MClinicalHistory
 } from '../../../models/AllModels';
 import {GeneralService} from '../../../services/general.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-clinical-history-creation',
@@ -13,6 +14,12 @@ export class ClinicalHistoryCreationComponent implements OnInit {
 
   public MClinicalHistory: any = MClinicalHistory;
   public patients = [];
+  public form = {
+    patient: '',
+    medicalProcedure: '',
+    treatment: '',
+    date: ''
+  };
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown = [
@@ -26,7 +33,7 @@ export class ClinicalHistoryCreationComponent implements OnInit {
     {Procedures: 'Amigdalectomía'}
   ];
 
-  constructor(private generalService: GeneralService) { }
+  constructor(private generalService: GeneralService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     for (const key of MClinicalHistory) {
@@ -40,12 +47,10 @@ export class ClinicalHistoryCreationComponent implements OnInit {
   }
 
   getPatients(data): any {
-    console.log(data);
     const cols: any = [];
     data.forEach(e => {
         cols.push(e.id);
     });
-    console.log(cols);
     return cols;
   }
 
@@ -82,6 +87,8 @@ export class ClinicalHistoryCreationComponent implements OnInit {
 
   onSubmit(): void {
     console.log('Crear historia clínica');
+    this.form.date = this.datePipe.transform(this.form.date, 'yyyy/MM/dd');
+    console.log(this.form);
   }
 
 
