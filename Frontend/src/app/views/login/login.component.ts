@@ -103,12 +103,28 @@ export class LoginComponent implements OnInit {
   }
 
   submit(email, password) {
-    this.authService.SignUp(email, password, this.type).then(r => {
-
-        this.newUser(email, this.type);
-        if (this.type !== 'patient') {
+    this.authService.SignUp(email, password, this.currentItem.type).then(r => {
+        console.log(this.currentItem.type);
+        this.newUser(email, this.currentItem.type);
+        if (this.currentItem.type === 'doctor' || this.currentItem.type === 'admin') {
           this.currentItem.startDate = this.datePipe.transform(this.currentItem.startDate, 'yyyy/MM/dd');
-          this.generalService.postElements('Admin', this.currentItem);
+          this.currentItem.birthDay = this.datePipe.transform(this.currentItem.birthDay, 'yyyy/MM/dd');
+          const body = {
+            Email: this.currentItem.email,
+            Hospitalid: 123,
+            Id: this.currentItem.id,
+            Phonenumber: this.currentItem.phonenumber,
+            Birthday: this.currentItem.birthDay,
+            Firstname: this.currentItem.firstName,
+            Lastname: this.currentItem.lastName,
+            Adress: this.currentItem.adress,
+            Type: this.currentItem.type,
+            Startdate: this.currentItem.startdate
+          };
+          console.log(body);
+          this.generalService.postElements('HospitalPersonnel', body).subscribe(response => {
+            console.log(response);
+          });
         }
         if (this.type === 'patient') {
           this.currentItem.birthDay = this.datePipe.transform(this.currentItem.birthDay, 'yyyy/MM/dd');

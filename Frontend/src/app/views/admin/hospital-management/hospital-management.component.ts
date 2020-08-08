@@ -72,7 +72,9 @@ export class HospitalManagementComponent implements OnInit {
     this.currentItem = item;
     // PK value
     console.log(item[PK]);
-    // this.generalService.deleteElements(this.currentType, PKvalue);
+    this.generalService.deleteElements(this.currentType, item[PK]).subscribe( r =>{
+      console.log(r);
+    });
   }
 
 

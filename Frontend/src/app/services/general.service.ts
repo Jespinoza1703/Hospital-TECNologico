@@ -132,11 +132,10 @@ export class GeneralService {
   }
 
   private httpDelete<T>(resource, PK): Observable<T> {
-    return this.http.delete<T>(this.url + resource + PK);
+    return this.http.delete<T>(this.url + resource + '/' + PK);
   }
 
   private httpPost(resource, body): Observable< any > {
-    console.log(this.url + resource);
     return this.http.post(this.url + resource, body);
   }
 }
