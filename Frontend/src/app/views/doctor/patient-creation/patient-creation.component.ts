@@ -13,10 +13,20 @@ export class PatientCreationComponent implements OnInit {
   public columns: any;
   public type = 'admin';
   public currentModel = MPatient;
+  public currentItem = null;
 
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+    this.onCreate();
+  }
+
+  // Creates item
+  onCreate(): void {
+    this.currentItem = {};
+    for (const field of this.currentModel) {
+      this.currentItem[field.db] = '';
+    }
   }
 
   submit(email, password) {

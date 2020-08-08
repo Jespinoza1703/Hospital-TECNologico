@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientEvaluationComponent implements OnInit {
 
+  selected = 0;
+  hovered = 0;
+  readonly = false;
+
   constructor() { }
 
   ngOnInit(): void {

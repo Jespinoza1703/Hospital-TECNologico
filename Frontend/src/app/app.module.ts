@@ -32,6 +32,7 @@ import { PatientCreationComponent } from './views/doctor/patient-creation/patien
 import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-history-creation/clinical-history-creation.component';
 import {MatTableModule} from '@angular/material/table';
 import {DatePipe} from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {DatePipe} from '@angular/common';
     MatTabsModule,
     MatPasswordStrengthModule,
     MatInputModule,
+    NgbModule,
     NgxAuthFirebaseUIModule.forRoot({
       apiKey: 'AIzaSyD-6TNE1crtB3bkqGCJnO7jBkviWdYuBHU',
       authDomain: 'hospital-tecnologico.firebaseapp.com',

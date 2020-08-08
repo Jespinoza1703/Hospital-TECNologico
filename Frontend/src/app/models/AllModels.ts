@@ -34,7 +34,7 @@ export const MBooking = [
 
 export const MRoom = [
   {column: 'Id', db: 'Id', PK: 1},
-  {column: 'Hospital Id', FK: 1, db: 'HospitalId'},
+  {column: 'Hospital Name', FK: 1, db: 'HospitalName'},
   {column: 'Name', db: 'Name'},
   {column: 'Type', db: 'Type'},
   {column: 'Capacity', db: 'Capacity'},
