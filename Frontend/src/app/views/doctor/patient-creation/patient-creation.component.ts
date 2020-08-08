@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {MPatient} from '../../../models/AllModels';
 import {GeneralService} from '../../../services/general.service';
+import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-patient-creation',
@@ -18,7 +20,7 @@ export class PatientCreationComponent implements OnInit {
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown = [];
-  constructor(public authService: AuthService, private generalService: GeneralService) { }
+  constructor(public authService: AuthService, private generalService: GeneralService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
 
@@ -76,7 +78,11 @@ export class PatientCreationComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log(this.currentItem);
+    this.currentItem.birthDay = this.datePipe.transform(this.currentItem.birthDay, 'yyyy/MM/dd');
+    this.submit(this.currentItem.email, '123456');
+    this.generalService.postElements('Patients', this.currentItem).subscribe(respuesta => {
+      console.log(respuesta);
+    });
   }
 
   // Gets all lists for the dropdown menu options
@@ -108,7 +114,6 @@ export class PatientCreationComponent implements OnInit {
     this.dropdownLists = [];
     this.generalService.getElements(fk).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
-      console.log(this.dropdown);
       this.getDropDownList(this.dropdown, fk);
     });
   }

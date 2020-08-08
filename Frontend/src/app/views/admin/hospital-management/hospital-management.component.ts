@@ -45,10 +45,11 @@ export class HospitalManagementComponent implements OnInit {
   changeModels(type, model) {
     this.currentData = [];
     this.currentType = type;
-    this.generalService.getData(type).subscribe(data => {
-      this.data = (data as any).data;
+    this.generalService.getElements(type).subscribe(data => {
+      this.data = (data as any);
       this.currentData = this.data;
       this.currentModel = model;
+      this.onCreate();
       this.columns = this.getColumns();
       for (const key of this.currentModel) {
         if (key.FK) {
@@ -95,7 +96,7 @@ export class HospitalManagementComponent implements OnInit {
   onCreate(): void {
     this.currentItem = {};
     for (const field of this.currentModel) {
-      this.currentItem[field.column] = '';
+      this.currentItem[field.db] = '';
     }
     this.editStatus = true;
   }
@@ -103,6 +104,10 @@ export class HospitalManagementComponent implements OnInit {
   // Closes editing or creating mode
   onClose(): void {
     this.editStatus = false;
+    this.generalService.postElements(this.currentType, this.currentItem).subscribe(respuesta => {
+      console.log(respuesta);
+      window.location.reload();
+    });
   }
 
   // Gets current columns and adds options column
@@ -121,16 +126,14 @@ export class HospitalManagementComponent implements OnInit {
     let list;
     if (dropdown) {
       dropdown.forEach(e => {
-        if (e.Id) {
-          this.dropdownList.push(e.Id);
+        if (e.Name && !e.Capacity && fk !== 'Hospital') {
+          this.dropdownList.push(e.Name);
         }
-        if (e.Country_Location_Id) {
-          this.dropdownList.push(e.Country_Location_Id);
+        if (e.Id && (fk === 'Hospital' || e.Capacity)) {
+          this.dropdownList.push(e.Id);
         }
         if (e.Regions) {
           this.dropdownList.push(e.Regions);
-        } else {
-          this.dropdownList.push(e.Name);
         }
       });
     }
@@ -152,7 +155,7 @@ export class HospitalManagementComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(data, fk) {
     this.dropdownLists = [];
-    this.generalService.getData(fk).subscribe(dropDownData => {
+    this.generalService.getElements(fk).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
       this.getDropDownList(this.dropdown, fk);
     });

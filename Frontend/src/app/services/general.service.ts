@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IRoom} from '../Interfaces/IRoom';
-import {IMedicalEquipment} from '../Interfaces/IMedicalEquipment';
-import {IBed} from '../Interfaces/IBed';
-import {IPersonnel} from '../Interfaces/IPersonnel';
-import {IMedicalProcedures} from '../Interfaces/IMedicalProcedures';
 import {IPathology} from '../Interfaces/IPathology';
+import {IMedicalProcedures} from '../Interfaces/IMedicalProcedures';
+import {IBed} from '../Interfaces/IBed';
+import {IMedicalEquipment} from '../Interfaces/IMedicalEquipment';
+import {IRoom} from '../Interfaces/IRoom';
+import {IPersonnel} from '../Interfaces/IPersonnel';
+import {IPatient} from '../Interfaces/IPatient';
+import {IHospital} from '../Interfaces/IHospital';
 
 @Injectable({
   providedIn: 'root'
@@ -24,28 +26,30 @@ export class GeneralService {
   getElements(type: string): Observable<any> {
     let observable;
     switch (type) {
-      case 'Room':
-        // observable =  this.httpGet<IRoom>(type);
-        observable =  this.getData(type);
+      case 'Rooms':
+        observable =  this.httpGet<IRoom>(type);
+
         break;
-      case 'MedicalEquipment':
-        // observable =  this.httpGet<IMedicalEquipment>(type);
-        observable =  this.getData(type);
+      case 'MedicalEquipments':
+        observable =  this.httpGet<IMedicalEquipment>(type);
         break;
-      case 'Bed':
-        // observable =  this.httpGet<IBed>(type);
-        observable =  this.getData(type);
+      case 'Beds':
+        observable =  this.httpGet<IBed>(type);
         break;
       case 'MedicalProcedures':
-        // observable =  this.httpGet<IMedicalProcedures>(type);
-        observable =  this.getData(type);
+        observable =  this.httpGet<IMedicalProcedures>(type);
         break;
-      case 'Personnel':
-        // observable =  this.httpGet<IPersonnel>(type);
-        observable =  this.getData(type);
+      case 'HospitalPersonnel':
+        observable =  this.httpGet<IPersonnel>(type);
         break;
       case 'Pathologies':
         observable =  this.httpGet<IPathology>(type);
+        break;
+      case 'Patients':
+        observable =  this.httpGet<IPatient>(type);
+        break;
+      case 'Hospital':
+        observable =  this.httpGet<IHospital>(type);
         break;
       default:
         observable = {};
@@ -57,19 +61,19 @@ export class GeneralService {
   deleteElements(type, PK): Observable<any> {
     let observable;
     switch (type) {
-      case 'room':
+      case 'Rooms':
         observable =  this.httpDelete(type, PK);
         break;
-      case 'medicalEquipment':
+      case 'MedicalEquipments':
         observable =  this.httpDelete(type, PK);
         break;
-      case 'bed':
+      case 'Beds':
         observable =  this.httpDelete(type, PK);
         break;
-      case 'medicalProcedures':
+      case 'MedicalProcedures':
         observable =  this.httpDelete(type, PK);
         break;
-      case 'personnel':
+      case 'HospitalPersonnel':
         observable =  this.httpDelete(type, PK);
         break;
       default:
@@ -81,22 +85,25 @@ export class GeneralService {
   postElements(resource, body): Observable<any> {
     let observable;
     switch (resource) {
-      case 'room':
+      case 'Rooms':
         observable =  this.httpPost(resource, body);
         break;
-      case 'medicalEquipment':
+      case 'MedicalEquipments':
         observable =  this.httpPost(resource, body);
         break;
-      case 'bed':
+      case 'Beds':
         observable =  this.httpPost(resource, body);
         break;
-      case 'medicalProcedures':
+      case 'MedicalProcedures':
         observable =  this.httpPost(resource, body);
         break;
-      case 'personnel':
+      case 'HospitalPersonnel':
         observable =  this.httpPost(resource, body);
         break;
       case 'Patients':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'ClinicalHistory':
         observable =  this.httpPost(resource, body);
         break;
       default:

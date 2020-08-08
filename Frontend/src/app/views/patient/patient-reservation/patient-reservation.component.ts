@@ -5,6 +5,7 @@ import {
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {GeneralService} from '../../../services/general.service';
 
 @Component({
   selector: 'app-patient-reservation',
@@ -19,27 +20,18 @@ export class PatientReservationComponent implements OnInit {
   public currentItem = null;
   public dropdownList: any = [];
   public dropdownLists = [];
-  public dropdown = [
-    {Procedures: 'Apendicectomía'},
-    {Procedures: 'Biopsia de mama'},
-    {Procedures: 'Cirugía de cataratas'},
-    {Procedures: 'Cesárea'},
-    {Procedures: 'Histerectomía'},
-    {Procedures: 'Cirugía para la lumbalgia'},
-    {Procedures: 'Mastectomía'},
-    {Procedures: 'Amigdalectomía'}
-  ];
+  public dropdown = [];
 
-  constructor(public authService: AuthService, private datePipe: DatePipe) {
+  constructor(public authService: AuthService, private datePipe: DatePipe, private generalService: GeneralService) {
   }
 
   ngOnInit(): void {
+    this.onCreate();
     for (const key of MBooking) {
       if (key.FK) {
         this.loadData(key.FK);
       }
     }
-    this.onCreate();
   }
 
   onCreate(): void {
@@ -48,7 +40,7 @@ export class PatientReservationComponent implements OnInit {
       if (field.multiple && field.column) {
         this.currentItem[field.column] = field.db;
       }
-      if (field.db === 'StartDate') {
+      if (field.db === 'startDate' || field.db === 'finishDate') {
         this.currentItem[field.db] = '';
       }
     }
@@ -56,7 +48,7 @@ export class PatientReservationComponent implements OnInit {
 
 
   onSubmit(): void {
-    this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
+    this.currentItem.startDate = this.datePipe.transform(this.currentItem.startDate, 'yyyy/MM/dd');
     console.log(this.currentItem);
     this.authService.getCurrentUserEmail().then(r => {
       console.log(r);
@@ -70,7 +62,7 @@ export class PatientReservationComponent implements OnInit {
     let list;
     if (dropdown) {
       dropdown.forEach(e => {
-        this.dropdownList.push(e.Procedures);
+        this.dropdownList.push(e.Name);
       });
     }
     list = [fk, this.dropdownList];
@@ -91,7 +83,11 @@ export class PatientReservationComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(fk) {
     this.dropdownLists = [];
-    this.getDropDownList(this.dropdown, fk);
+    console.log(fk);
+    this.generalService.getElements(fk).subscribe(dropDownData => {
+      this.dropdown = (dropDownData as any);
+      this.getDropDownList(this.dropdown, fk);
+    });
   }
 
   generateDropdown(e) {

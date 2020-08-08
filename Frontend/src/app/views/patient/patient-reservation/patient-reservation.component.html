@@ -21,10 +21,10 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div *ngIf="key.date">
+          <div *ngIf="key.date && !key.notShow">
             <mat-form-field color="accent" appearance="fill">
               <mat-label>{{key.column}}</mat-label>
-              <input matInput [matDatepicker]="picker1" [(ngModel)]="currentItem[key.db]">
+              <input matInput [matDatepicker]="picker1" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -33,7 +33,7 @@
             <div class="mb-5" *ngFor="let number of numbers">
               <mat-form-field>
                 <mat-label>{{key.db[number].procedure}}</mat-label>
-                <mat-select [(ngModel)]="key.db[number].procedure">
+                <mat-select [(ngModel)]="key.db[number].procedure" [ngModelOptions]="{standalone: true}">
                   <div *ngFor="let option of getOptionsList(key.FK)">
                     <mat-option [value]="option">{{option}}</mat-option>
                   </div>

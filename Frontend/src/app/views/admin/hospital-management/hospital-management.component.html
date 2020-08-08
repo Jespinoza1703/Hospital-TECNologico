@@ -1,9 +1,9 @@
 <div class="container mt-5" align="center">
-  <button class="btn primaryBtn mr-2" (click)="changeModels('rooms', MRoom)">Room</button>
-  <button class="btn primaryBtn mr-2" (click)="changeModels('medicalEquipment', MMedicalEquipment)">MedicalEquipment</button>
-  <button class="btn primaryBtn mr-2" (click)="changeModels('beds', MBed)">Bed</button>
-  <button class="btn primaryBtn mr-2" (click)="changeModels('medicalProcedures', MMedicalProcedures)">MedicalProcedures</button>
-  <button class="btn primaryBtn mr-2" (click)="changeModels('hospitalPersonnel', MPersonnel)">MPersonnel</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('Rooms', MRoom)">Room</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('MedicalEquipments', MMedicalEquipment)">MedicalEquipment</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('Beds', MBed)">Bed</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('MedicalProcedures', MMedicalProcedures)">MedicalProcedures</button>
+  <button class="btn primaryBtn mr-2" (click)="changeModels('HospitalPersonnel', MPersonnel)">Personnel</button>
 </div>
 <div class="jumbotron customJumbotron mt-5 mb-5">
   <h1 align="center" class="N-Primary text--blue mb-5">Administration</h1>
@@ -35,22 +35,13 @@
             Add new
           </h5>
           <div *ngFor="let key of currentModel">
-            <input class="form-control customInput smallInput mt-2" type="text" *ngIf="!key.FK && !key.type" [(ngModel)]="currentItem[key.column]" placeholder="{{key.column}}"/>
-            <div *ngIf="key.type" class="mt-2 mb-2">
-              <mat-form-field>
-                <mat-label>Type</mat-label>
-                <mat-select>
-                  <div *ngFor="let option of key.type">
-                    <mat-option value="{{option}}">{{option}}</mat-option>
-                  </div>
-                </mat-select>
-              </mat-form-field>
-            </div>
+            <input class="form-control customInput smallInput mt-2" type="text" *ngIf="!key.FK" [(ngModel)]="currentItem[key.db]" placeholder="{{key.column}}"/>
+
             <div *ngIf="key.FK">
               <div class="mb-5">
                 <mat-form-field>
                   <mat-label>{{key.column}}</mat-label>
-                  <mat-select [(ngModel)]="currentItem[key.column]">
+                  <mat-select [(ngModel)]="currentItem[key.db]">
                     <div *ngFor="let option of getOptionsList(key.FK)">
                       <mat-option [value]="option">{{option}}</mat-option>
                     </div>
@@ -69,5 +60,5 @@
 </div>
 
 <div class="container ml-5">
-  <button class="btn primaryBtn" (click)="onCreate()">CoTEC Sync</button>
+  <button class="btn primaryBtn" (click)="onClose()">CoTEC Sync</button>
 </div>

@@ -18,20 +18,11 @@ export class ClinicalHistoryCreationComponent implements OnInit {
     patient: '',
     medicalProcedure: '',
     treatment: '',
-    date: ''
+    birthDay: ''
   };
   public dropdownList: any = [];
   public dropdownLists = [];
-  public dropdown = [
-    {Procedures: 'Apendicectomía'},
-    {Procedures: 'Biopsia de mama'},
-    {Procedures: 'Cirugía de cataratas'},
-    {Procedures: 'Cesárea'},
-    {Procedures: 'Histerectomía'},
-    {Procedures: 'Cirugía para la lumbalgia'},
-    {Procedures: 'Mastectomía'},
-    {Procedures: 'Amigdalectomía'}
-  ];
+  public dropdown = [];
 
   constructor(private generalService: GeneralService, private datePipe: DatePipe) { }
 
@@ -41,7 +32,7 @@ export class ClinicalHistoryCreationComponent implements OnInit {
         this.loadData(key.FK);
       }
     }
-    this.generalService.getData('patient').subscribe(data => {
+    this.generalService.getElements('Patients').subscribe(data => {
       this.patients = this.getPatients(data as any);
     });
   }
@@ -49,7 +40,7 @@ export class ClinicalHistoryCreationComponent implements OnInit {
   getPatients(data): any {
     const cols: any = [];
     data.forEach(e => {
-        cols.push(e.id);
+        cols.push(e.Id);
     });
     return cols;
   }
@@ -60,7 +51,7 @@ export class ClinicalHistoryCreationComponent implements OnInit {
     let list;
     if (dropdown) {
       dropdown.forEach(e => {
-        this.dropdownList.push(e.Procedures);
+        this.dropdownList.push(e.Name);
       });
     }
     list = [fk, this.dropdownList];
@@ -81,14 +72,20 @@ export class ClinicalHistoryCreationComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(fk) {
     this.dropdownLists = [];
-    this.getDropDownList(this.dropdown, fk);
+    this.generalService.getElements(fk).subscribe(dropDownData => {
+      this.dropdown = (dropDownData as any);
+      this.getDropDownList(this.dropdown, fk);
+    });
   }
 
 
   onSubmit(): void {
     console.log('Crear historia clínica');
-    this.form.date = this.datePipe.transform(this.form.date, 'yyyy/MM/dd');
-    console.log(this.form);
+    this.form.birthDay = this.datePipe.transform(this.form.birthDay, 'yyyy/MM/dd');
+    this.generalService.postElements('ClinicalHistory', this.form).subscribe(respuesta => {
+      console.log(respuesta);
+      window.location.reload();
+    });
   }
 
 
