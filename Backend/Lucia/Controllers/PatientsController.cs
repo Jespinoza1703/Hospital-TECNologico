@@ -1,4 +1,5 @@
 ﻿using Lucia.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,8 +41,29 @@ namespace Lucia.Controllers
         }
 
         // POST: api/Patients
-        public void Post([FromBody]string value)
+        public void Post(patientInput patient)
         {
+            Patients paciente = new Patients();
+            paciente.Email = patient.Email;
+            paciente.Id = patient.Id;
+            paciente.Phonenumber = patient.Phonenumber;
+            paciente.Birthday = patient.Birthday;
+            paciente.Firstname = patient.Firstname;
+            paciente.Lastname = patient.Lastname;
+            paciente.Adress = patient.Lastname;
+            postgreContext.Add(paciente);
+            postgreContext.SaveChanges();
+            foreach (patientInputArray enfermedad in patient.pathologies) {
+                Pathologypatients enfe = new Pathologypatients();
+                enfe.Pathologyname = enfermedad.Name;
+                enfe.Patientid = patient.Id;
+                enfe.Treatment = enfermedad.treatment;
+                postgreContext.Add(enfe);
+                postgreContext.SaveChanges();
+
+            }
+            System.Diagnostics.Debug.WriteLine("##################################");
+            System.Diagnostics.Debug.WriteLine(patient.pathologies[0].Name);
         }
 
         // PUT: api/Patients/5
