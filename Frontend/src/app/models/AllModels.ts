@@ -5,8 +5,16 @@ export const MPatient = [
   {column: 'Last Name', db: 'LastName'},
   {column: 'Phone', db: 'Phone'},
   {column: 'Address', db: 'Address'},
-  {column: 'Pathologies', db: 'Pathologies', pathologies: 'pathology'},
-  {column: 'Treatment', db: 'Treatment', treatment: 'treatment'},
+  {column: 'Pathologies', pathology: 1, multiple: 1, FK: 1, db: [
+      { pathology: 'pathology1' },
+      { pathology: 'pathology2' },
+      { pathology: 'pathology3' }
+    ]},
+  {column: 'Treatment', treatment: 1,  multiple: 1, db: [
+      { treatment: 'treatment1' },
+      { treatment: 'treatment2' },
+      { treatment: 'treatment3' }
+    ]},
   {column: 'Birthday', db: 'Birthday', date: 1}
 ];
 

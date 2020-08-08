@@ -27,6 +27,18 @@ export class LoginComponent implements OnInit {
   loggedIn = false;
   signingUp = false;
   public currentItem = null;
+  public dropdownList: any = [];
+  public dropdownLists = [];
+  public dropdown = [
+    {Procedures: 'Apendicectomía'},
+    {Procedures: 'Biopsia de mama'},
+    {Procedures: 'Cirugía de cataratas'},
+    {Procedures: 'Cesárea'},
+    {Procedures: 'Histerectomía'},
+    {Procedures: 'Cirugía para la lumbalgia'},
+    {Procedures: 'Mastectomía'},
+    {Procedures: 'Amigdalectomía'}
+  ];
 
   constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe ) { }
 
@@ -35,6 +47,7 @@ export class LoginComponent implements OnInit {
     if (this.type != null) {
       this.loggedIn = true;
     }
+
   }
 
   // Sign in as patient
@@ -47,6 +60,11 @@ export class LoginComponent implements OnInit {
     this.hospitalPersonnelSignIn = false;
     this.type = 'patient';
     localStorage.setItem('type', this.type);
+    for (const key of this.currentModel) {
+      if (key.FK) {
+        this.loadData(key.FK);
+      }
+    }
   }
   // Sign in as Hospital Personnel
   signInHospitalPersonnel() {
@@ -58,6 +76,11 @@ export class LoginComponent implements OnInit {
     this.patientSignIn = false;
     this.type = 'doctor';
     localStorage.setItem('type', this.type);
+    for (const key of this.currentModel) {
+      if (key.FK) {
+        this.loadData(key.FK);
+      }
+    }
   }
 
 
@@ -109,6 +132,36 @@ export class LoginComponent implements OnInit {
       }, (error) => {
         console.error(error);
       });
+  }
+
+  // Gets all lists for the dropdown menu options
+  getDropDownList(dropdown, fk) {
+    this.dropdownList = [];
+    let list;
+    if (dropdown) {
+      dropdown.forEach(e => {
+        this.dropdownList.push(e.Procedures);
+      });
+    }
+    list = [fk, this.dropdownList];
+    this.dropdownLists.push(list);
+  }
+
+  // Gets the specific list for each dropdown, according to FK
+  getOptionsList(fk): any {
+    let result = [];
+    this.dropdownLists.forEach(e => {
+      if (e[0] === fk) {
+        result = e[1];
+      }
+    });
+    return result;
+  }
+
+  // Loads data from server to render dropdowns
+  loadData(fk) {
+    this.dropdownLists = [];
+    this.getDropDownList(this.dropdown, fk);
   }
 
 }
