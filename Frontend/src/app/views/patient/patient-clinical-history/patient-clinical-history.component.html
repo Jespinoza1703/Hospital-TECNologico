@@ -2,21 +2,21 @@
   <mat-table [dataSource]="currentData" class="mat-elevation-z8">
 
     <!-- Date Column -->
-    <ng-container matColumnDef="date">
+    <ng-container matColumnDef="Date">
       <mat-header-cell class="t1" *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.Date | date}} </mat-cell>
     </ng-container>
 
     <!-- Procedure Column -->
-    <ng-container matColumnDef="medicalProcedure">
+    <ng-container matColumnDef="Medicalprocedurename">
       <mat-header-cell class="t1" *matHeaderCellDef> Procedure </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.medicalProcedure}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.Medicalprocedurename}} </mat-cell>
     </ng-container>
 
     <!-- Treatment Column -->
-    <ng-container matColumnDef="treatment">
+    <ng-container matColumnDef="Treatment">
       <mat-header-cell class="t1" *matHeaderCellDef> Treatment </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.treatment}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.Treatment}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>

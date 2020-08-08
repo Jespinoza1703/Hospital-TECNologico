@@ -4,6 +4,7 @@ import {GeneralService} from '../../../services/general.service';
 import {
   MClinicalHistory
 } from '../../../models/AllModels';
+import {AuthService} from '../../../services/auth.service';
 
 
 @Component({
@@ -20,16 +21,20 @@ export class PatientClinicalHistoryComponent implements OnInit {
   public displayedColumns = [];
   public columns = [];
 
-  constructor(private generalService: GeneralService) { }
+  constructor(private generalService: GeneralService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.currentData = [];
-    this.generalService.getData('clinicalHistory').subscribe(data => {
-      this.data = (data as any).data;
-      this.currentData = this.data;
-      this.displayedColumns = this.getDisplayedColumns();
-      this.columns = this.getColumns();
+    this.authService.getCurrentUserEmail().then(r => {
+      this.currentData = [];
+      this.generalService.getElementsWParams('ClinicalHistory', r).subscribe(data => {
+        this.data = (data as any);
+        console.log(this.data);
+        this.currentData = this.data;
+        this.displayedColumns = this.getDisplayedColumns();
+        this.columns = this.getColumns();
+      });
     });
+
   }
 
   getDisplayedColumns() {

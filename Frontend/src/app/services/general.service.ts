@@ -28,7 +28,6 @@ export class GeneralService {
     switch (type) {
       case 'Rooms':
         observable =  this.httpGet<IRoom>(type);
-
         break;
       case 'MedicalEquipments':
         observable =  this.httpGet<IMedicalEquipment>(type);
@@ -54,9 +53,24 @@ export class GeneralService {
       default:
         observable = {};
     }
-
     return observable;
   }
+
+  getElementsWParams(type: string, params: string): Observable<any> {
+    let observable;
+    switch (type) {
+      case 'Rooms':
+        observable = this.httpGet<IRoom>(type + params);
+        break;
+      case 'ClinicalHistory':
+        observable = this.httpGet<IHospital>(type + '?email=' + params);
+        break;
+      default:
+        observable = {};
+    }
+    return observable;
+  }
+
 
   deleteElements(type, PK): Observable<any> {
     let observable;
@@ -114,7 +128,7 @@ export class GeneralService {
 
   // calls http.get() with the corresponding resource url.
   private httpGet<T>(resource: string): Observable<T> {
-    return this.http.get<T>(this.url + resource);
+      return this.http.get<T>(this.url + resource);
   }
 
   private httpDelete<T>(resource, PK): Observable<T> {

@@ -15,11 +15,12 @@ export class ClinicalHistoryCreationComponent implements OnInit {
   public MClinicalHistory: any = MClinicalHistory;
   public patients = [];
   public form = {
-    patient: '',
-    medicalProcedure: '',
+    Id: '',
+    Medicalprocedurename: '',
     treatment: '',
-    birthDay: ''
+    Date: ''
   };
+
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown = [];
@@ -80,9 +81,17 @@ export class ClinicalHistoryCreationComponent implements OnInit {
 
 
   onSubmit(): void {
-    console.log('Crear historia clínica');
-    this.form.birthDay = this.datePipe.transform(this.form.birthDay, 'yyyy/MM/dd');
-    this.generalService.postElements('ClinicalHistory', this.form).subscribe(respuesta => {
+    this.form.Date = this.datePipe.transform(this.form.Date, 'yyyy/MM/dd');
+    console.log(this.form);
+    const body = {
+      Date: this.form.Date,
+      Patientid: this.form.Id,
+      Medicalprocedurename: this.form.Medicalprocedurename,
+      Treatment: this.form.treatment,
+    };
+
+
+    this.generalService.postElements('ClinicalHistory', body).subscribe(respuesta => {
       console.log(respuesta);
       window.location.reload();
     });

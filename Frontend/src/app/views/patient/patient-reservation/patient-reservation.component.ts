@@ -83,7 +83,6 @@ export class PatientReservationComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(fk) {
     this.dropdownLists = [];
-    console.log(fk);
     this.generalService.getElements(fk).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
       this.getDropDownList(this.dropdown, fk);

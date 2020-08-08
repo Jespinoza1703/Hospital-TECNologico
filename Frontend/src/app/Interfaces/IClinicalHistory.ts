@@ -1,6 +1,6 @@
 export interface IClinicalHistory {
-  position: number;
-  date: string;
-  medicalProcedure: string;
+  Id: number;
+  Date: string;
+  Medicalprocedurename: string;
   treatment: string;
 }
