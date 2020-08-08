@@ -264,7 +264,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\PathologiesController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -277,6 +279,7 @@
     <Compile Include="Models\Evaluations.cs" />
     <Compile Include="Models\Hospitalpersonnel.cs" />
     <Compile Include="Models\Hospitals.cs" />
+    <Compile Include="Models\hospitalView.cs" />
     <Compile Include="Models\Medicalequipment.cs" />
     <Compile Include="Models\Medicalprocedures.cs" />
     <Compile Include="Models\Pathologies.cs" />
@@ -284,6 +287,7 @@
     <Compile Include="Models\Pathologypatients.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Patientschanges.cs" />
+    <Compile Include="Models\patientsView.cs" />
     <Compile Include="Models\PostgreContext.cs" />
     <Compile Include="Models\Rooms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
