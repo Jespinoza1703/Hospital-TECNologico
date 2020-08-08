@@ -26,13 +26,11 @@ import { PatientReservationComponent } from './views/patient/patient-reservation
 import { PatientClinicalHistoryComponent } from './views/patient/patient-clinical-history/patient-clinical-history.component';
 import { PatientEvaluationComponent } from './views/patient/patient-evaluation/patient-evaluation.component';
 import { HospitalManagementComponent } from './views/admin/hospital-management/hospital-management.component';
-import { CotecSyncComponent } from './views/admin/cotec-sync/cotec-sync.component';
 import { ReportsComponent } from './views/admin/reports/reports.component';
 import { PatientCreationComponent } from './views/doctor/patient-creation/patient-creation.component';
 import { ClinicalHistoryCreationComponent } from './views/doctor/clinical-history-creation/clinical-history-creation.component';
 import {MatTableModule} from '@angular/material/table';
 import {DatePipe} from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -48,7 +46,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PatientClinicalHistoryComponent,
     PatientEvaluationComponent,
     HospitalManagementComponent,
-    CotecSyncComponent,
     ReportsComponent,
     PatientCreationComponent,
     ClinicalHistoryCreationComponent
@@ -60,7 +57,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatTabsModule,
     MatPasswordStrengthModule,
     MatInputModule,
-    NgbModule,
     NgxAuthFirebaseUIModule.forRoot({
       apiKey: 'AIzaSyD-6TNE1crtB3bkqGCJnO7jBkviWdYuBHU',
       authDomain: 'hospital-tecnologico.firebaseapp.com',

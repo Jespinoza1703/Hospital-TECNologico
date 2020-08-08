@@ -4,8 +4,6 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import {auth, User} from 'firebase/app';
 import {Observable} from 'rxjs';
-import {IPatient} from '../Interfaces/IPatient';
-import {IPersonnel} from '../Interfaces/IPersonnel';
 
 @Injectable({
   providedIn: 'root'
@@ -74,11 +72,12 @@ export class AuthService {
       });
   }
 
-
+  // Verifies if a user is currently logged in
   get isLoggedIn(): boolean {
     return (this.authState !== null);
   }
 
+  // Creates a firebase doc for associating email with user type
   public createUserAssoc(data: {email: string, type: string}) {
     return this.afs.collection('items').add(data);
   }

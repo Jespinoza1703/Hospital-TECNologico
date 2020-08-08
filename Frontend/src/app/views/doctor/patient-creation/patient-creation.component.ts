@@ -29,11 +29,13 @@ export class PatientCreationComponent implements OnInit {
     }
   }
 
+  // Submits new user data
   submit(email, password) {
     this.authService.SignUp(email, password, 'patient');
     this.newUser(email, 'patient');
   }
 
+  // Associates new user type to its email
   public newUser(email, type) {
     const data = {
       email: '',

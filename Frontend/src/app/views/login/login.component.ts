@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.type = 'patient';
     localStorage.setItem('type', this.type);
   }
-  // Sign in as doctor
+  // Sign in as Hospital Personnel
   signInHospitalPersonnel() {
     this.signingUp = true;
     this.currentModel = MPersonnel;
