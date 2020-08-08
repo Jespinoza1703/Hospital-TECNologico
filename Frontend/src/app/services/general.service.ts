@@ -9,6 +9,7 @@ import {IRoom} from '../Interfaces/IRoom';
 import {IPersonnel} from '../Interfaces/IPersonnel';
 import {IPatient} from '../Interfaces/IPatient';
 import {IHospital} from '../Interfaces/IHospital';
+import {IBooking} from '../Interfaces/IBooking';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,9 @@ export class GeneralService {
       case 'Hospital':
         observable =  this.httpGet<IHospital>(type);
         break;
+      case 'Booking':
+        observable =  this.httpGet<IBooking>(type);
+        break;
       default:
         observable = {};
     }
@@ -59,8 +63,8 @@ export class GeneralService {
   getElementsWParams(type: string, params: string): Observable<any> {
     let observable;
     switch (type) {
-      case 'Rooms':
-        observable = this.httpGet<IRoom>(type + params);
+      case 'Booking':
+        observable =  this.httpGet<IBooking>(type + '?email=' + params);
         break;
       case 'ClinicalHistory':
         observable = this.httpGet<IHospital>(type + '?email=' + params);
@@ -118,6 +122,9 @@ export class GeneralService {
         observable =  this.httpPost(resource, body);
         break;
       case 'ClinicalHistory':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'Booking':
         observable =  this.httpPost(resource, body);
         break;
       default:

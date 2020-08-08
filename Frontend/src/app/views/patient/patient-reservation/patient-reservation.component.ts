@@ -21,12 +21,17 @@ export class PatientReservationComponent implements OnInit {
   public dropdownList: any = [];
   public dropdownLists = [];
   public dropdown = [];
+  currentData: any;
+  columns;
+  public currentType;
+  private data: any;
+  editStatus = false;
 
   constructor(public authService: AuthService, private datePipe: DatePipe, private generalService: GeneralService) {
   }
 
   ngOnInit(): void {
-    this.onCreate();
+    this.init();
     for (const key of MBooking) {
       if (key.FK) {
         this.loadData(key.FK);
@@ -44,16 +49,16 @@ export class PatientReservationComponent implements OnInit {
         this.currentItem[field.db] = '';
       }
     }
+    this.editStatus = true;
   }
 
 
   onSubmit(): void {
     this.currentItem.startDate = this.datePipe.transform(this.currentItem.startDate, 'yyyy/MM/dd');
-    console.log(this.currentItem);
-    this.authService.getCurrentUserEmail().then(r => {
-      console.log(r);
-    });
-    console.log('Crear reservacion');
+    this.generalService.postElements('Booking', this.currentItem).subscribe(response => {
+        console.log(response);
+      });
+    this.editStatus = false;
   }
 
   // Gets all lists for the dropdown menu options
@@ -95,6 +100,45 @@ export class PatientReservationComponent implements OnInit {
     for (let i = 0; i < this.numberOfProcedures; i++) {
       this.numbers.push(i);
     }
+  }
+
+  onDelete(item): void {
+    let PK: any;
+    for (const field of MBooking) {
+      if (field.PK) {
+        PK = field.column;
+        break;
+      }
+    }
+    this.currentItem = item;
+    // PK value
+    console.log(item[PK]);
+    this.generalService.deleteElements('Bookings', item[PK]).subscribe( r => {
+      console.log(r);
+    });
+  }
+
+  init() {
+    this.currentData = [];
+    this.currentType = 'Booking';
+    this.generalService.getElements(this.currentType).subscribe(data => {
+      this.data = (data as any);
+      console.log(this.data);
+      this.currentData = this.data;
+      this.columns = this.getColumns();
+    });
+  }
+
+  // Gets current columns and adds options column
+  getColumns() {
+    const cols: any = [];
+    for (const i of MBooking) {
+      if (!i.notShow && i.column) {
+        cols.push(i.column);
+      }
+    }
+    cols.push('Accions');
+    return cols;
   }
 
 }
