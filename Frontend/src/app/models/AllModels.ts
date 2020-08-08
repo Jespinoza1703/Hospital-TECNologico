@@ -1,33 +1,29 @@
 export const MPatient = [
-  {column: 'Email', db: 'Email', email: 1},
-  {column: 'Identification', db: 'Id', PK: 1},
-  {column: 'First Name', db: 'FirstName'},
-  {column: 'Last Name', db: 'LastName'},
-  {column: 'Phone', db: 'Phone'},
-  {column: 'Address', db: 'Address'},
-  {column: 'Pathologies', pathology: 1, multiple: 1, FK: 'Pathologies', db: [
-      { pathology: 'pathology1' },
-      { pathology: 'pathology2' },
-      { pathology: 'pathology3' }
+  {column: 'Email', db: 'email', email: 1},
+  {column: 'Identification', db: 'id', PK: 1},
+  {column: 'First Name', db: 'firstName'},
+  {column: 'Last Name', db: 'lastName'},
+  {column: 'Phone', db: 'phonenumber'},
+  {column: 'Address', db: 'adress'},
+  {column: 'Pathologies', pathology: 1, treatment: 1, multiple: 1, FK: 'Pathologies', db: [
+      { name: 'No pathology', treatment: 'No Treatment'},
+      { name: 'No pathology', treatment: 'No Treatment' },
+      { name: 'No pathology', treatment: 'No Treatment' }
     ]},
-  {column: 'Treatment', treatment: 1,  multiple: 1, db: [
-      { treatment: 'treatment1' },
-      { treatment: 'treatment2' },
-      { treatment: 'treatment3' }
-    ]},
-  {column: 'Birthday', db: 'Birthday', date: 1}
+
+  {column: 'Birthday', db: 'birthDay', date: 1}
 ];
 
 export const MPersonnel = [
-  {column: 'Email', db: 'Email', email: 1},
-  {column: 'Identification', db: 'Id', PK: 1},
-  {column: 'First Name', db: 'First Name'},
-  {column: 'Last Name', db: 'LastName'},
-  {column: 'Phone', db: 'Phone'},
-  {column: 'Address', db: 'Address'},
-  {column: 'Type', db: 'Type', type: ['doctor', 'nurse', 'admin']},
-  {column: 'Birthday', db: 'Birthday', date: 1},
-  {column: 'Institution Entry Date', db: 'StartDate', date: 1}
+  {column: 'Email', db: 'email', email: 1},
+  {column: 'Identification', db: 'id', PK: 1},
+  {column: 'First Name', db: 'firstName'},
+  {column: 'Last Name', db: 'lastName'},
+  {column: 'Phone', db: 'phonenumber'},
+  {column: 'Address', db: 'adress'},
+  {column: 'Type', db: 'type', type: ['doctor', 'nurse', 'admin']},
+  {column: 'Birthday', db: 'birthDay', date: 1},
+  {column: 'Institution Entry Date', db: 'startDate', date: 1}
 ];
 
 export const MBooking = [

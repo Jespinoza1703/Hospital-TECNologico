@@ -15,7 +15,7 @@
         </mat-form-field>
       </div>
       <div *ngFor="let key of currentModel">
-        <div *ngIf="!key.FK && !key.date && !key.pathologies && !key.treatment">
+        <div *ngIf="!key.FK && !key.date && !key.pathology && !key.treatment">
           <mat-form-field>
             <mat-label>{{key.column}}</mat-label>
             <input matInput required type="text" [(ngModel)]="currentItem[key.db]" [ngModelOptions]="{standalone: true}">
@@ -33,8 +33,8 @@
           <div *ngIf="key.FK && key.multiple">
             <div class="mb-5" *ngFor="let number of numbers">
               <mat-form-field>
-                <mat-label>{{key.db[number].pathology}}</mat-label>
-                <mat-select [(ngModel)]="key.db[number].pathology">
+                <mat-label>{{key.db[number].name}}</mat-label>
+                <mat-select [(ngModel)]="key.db[number].name">
                   <div *ngFor="let option of getOptionsList(key.FK)">
                     <mat-option [value]="option">{{option}}</mat-option>
                   </div>

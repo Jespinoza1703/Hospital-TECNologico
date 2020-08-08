@@ -32,8 +32,8 @@ export class PatientCreationComponent implements OnInit {
       if (field.multiple && field.column) {
         this.currentItem[field.column] = field.db;
       }
-      if (field.db === 'Email' || field.db === 'Id' || field.db === 'FirstName' || field.db === 'LastName' ||
-        field.db === 'Phone' || field.db === 'Address' || field.db === 'Treatment' || field.db === 'Birthday') {
+      if (field.db === 'email' || field.db === 'id' || field.db === 'firstName' || field.db === 'lastName' ||
+        field.db === 'phone' || field.db === 'adress' || field.db === 'treatment' || field.db === 'birthDay') {
         this.currentItem[field.db] = '';
       }
     }

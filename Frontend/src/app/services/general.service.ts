@@ -78,6 +78,32 @@ export class GeneralService {
     return observable;
   }
 
+  postElements(resource, body): Observable<any> {
+    let observable;
+    switch (resource) {
+      case 'room':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'medicalEquipment':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'bed':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'medicalProcedures':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'personnel':
+        observable =  this.httpPost(resource, body);
+        break;
+      case 'Patients':
+        observable =  this.httpPost(resource, body);
+        break;
+      default:
+        observable = {};
+    }
+    return observable;
+  }
 
   // calls http.get() with the corresponding resource url.
   private httpGet<T>(resource: string): Observable<T> {
@@ -88,4 +114,8 @@ export class GeneralService {
     return this.http.delete<T>(this.url + resource + PK);
   }
 
+  private httpPost(resource, body): Observable< any > {
+    console.log(this.url + resource);
+    return this.http.post(this.url + resource, body);
+  }
 }

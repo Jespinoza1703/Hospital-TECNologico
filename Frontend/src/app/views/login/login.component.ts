@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
   public dropdownLists = [];
   public dropdown = [];
 
-  constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe, private generalService: GeneralService ) { }
+  constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe,
+              private generalService: GeneralService ) { }
 
   ngOnInit(): void {
     this.type = localStorage.getItem('type');
@@ -60,8 +61,6 @@ export class LoginComponent implements OnInit {
   }
   // Sign in as Hospital Personnel
   signInHospitalPersonnel() {
-    this.type = 'doctor';
-    localStorage.setItem('type', this.type);
     this.signingUp = true;
     this.currentModel = MPersonnel;
     for (const key of this.currentModel) {
@@ -70,6 +69,8 @@ export class LoginComponent implements OnInit {
       }
     }
     this.onCreate();
+    this.type = this.currentItem.type;
+    localStorage.setItem('type', this.type);
     this.columns = this.getColumns();
     this.hospitalPersonnelSignIn = true;
     this.patientSignIn = false;
@@ -90,24 +91,43 @@ export class LoginComponent implements OnInit {
   onCreate(): void {
     this.currentItem = {};
     for (const field of this.currentModel) {
-      if (field.multiple && field.column) {
+      if (field.multiple && field.db) {
         this.currentItem[field.column] = field.db;
       }
-      if (field.db === 'Email' || field.db === 'Id' || field.db === 'FirstName' || field.db === 'LastName' ||
-        field.db === 'Phone' || field.db === 'Address' || field.db === 'Treatment' || field.db === 'Birthday') {
+      if (field.db === 'email' || field.db === 'id' || field.db === 'firstName' || field.db === 'lastName' ||
+        field.db === 'phonenumber' || field.db === 'adress' || field.db === 'treatment' || field.db === 'birthDay' ||
+      field.db === 'startDate' || field.db === 'type') {
         this.currentItem[field.db] = '';
       }
     }
   }
 
   submit(email, password) {
-    console.log(this.currentItem);
-    this.authService.SignUp(email, password, this.currentItem.Type).then(r => {
-      this.currentItem.Birthday = this.datePipe.transform(this.currentItem.Birthday, 'yyyy/MM/dd');
-      this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
-      this.newUser(email, this.currentItem.Type);
-      if (r !== undefined) {
-      }
+    this.authService.SignUp(email, password, this.type).then(r => {
+
+        this.newUser(email, this.type);
+        if (this.type !== 'patient') {
+          this.currentItem.startDate = this.datePipe.transform(this.currentItem.startDate, 'yyyy/MM/dd');
+          this.generalService.postElements('Admin', this.currentItem);
+        }
+        if (this.type === 'patient') {
+          this.currentItem.birthDay = this.datePipe.transform(this.currentItem.birthDay, 'yyyy/MM/dd');
+          const body = {
+            Email: this.currentItem.email,
+            Id: this.currentItem.id,
+            Phonenumber: this.currentItem.phonenumber,
+            Birthday: this.currentItem.birthDay,
+            Firstname: this.currentItem.firstName,
+            Lastname: this.currentItem.lastName,
+            Adress: this.currentItem.adress,
+            pathologies: this.currentItem.Pathologies
+          };
+
+          console.log(body);
+          this.generalService.postElements('Patients', body).subscribe(respuesta => {
+            console.log(respuesta);
+          });
+        }
     });
   }
 
@@ -163,7 +183,6 @@ export class LoginComponent implements OnInit {
     this.dropdownLists = [];
     this.generalService.getElements(fk).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
-      console.log(this.dropdown);
       this.getDropDownList(this.dropdown, fk);
     });
   }

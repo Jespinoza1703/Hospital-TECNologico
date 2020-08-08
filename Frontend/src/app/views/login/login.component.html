@@ -32,7 +32,7 @@
 
           <mat-form-field class="example-full-width mt-2 mr-3">
             <mat-label>Email</mat-label>
-            <input id="userEmail" matInput required #userEmail [(ngModel)]="currentItem.Email" [ngModelOptions]="{standalone: true}">
+            <input id="userEmail" matInput required #userEmail [(ngModel)]="currentItem.email" [ngModelOptions]="{standalone: true}">
           </mat-form-field>
           <mat-form-field class="example-full-width mt-2">
             <mat-label>Password</mat-label>
@@ -73,8 +73,8 @@
             <div *ngIf="key.pathology && key.multiple">
               <div class="mb-5" *ngFor="let number of numbers">
                 <mat-form-field>
-                  <mat-label>{{key.db[number].pathology}}</mat-label>
-                  <mat-select [(ngModel)]="key.db[number].pathology" [ngModelOptions]="{standalone: true}">
+                  <mat-label>{{key.db[number].name}}</mat-label>
+                  <mat-select [(ngModel)]="key.db[number].name" [ngModelOptions]="{standalone: true}">
                     <div *ngFor="let option of getOptionsList(key.FK)">
                       <mat-option [value]="option">{{option}}</mat-option>
                     </div>
