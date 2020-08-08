@@ -29,18 +29,9 @@ export class LoginComponent implements OnInit {
   public currentItem = null;
   public dropdownList: any = [];
   public dropdownLists = [];
-  public dropdown = [
-    {Procedures: 'Apendicectomía'},
-    {Procedures: 'Biopsia de mama'},
-    {Procedures: 'Cirugía de cataratas'},
-    {Procedures: 'Cesárea'},
-    {Procedures: 'Histerectomía'},
-    {Procedures: 'Cirugía para la lumbalgia'},
-    {Procedures: 'Mastectomía'},
-    {Procedures: 'Amigdalectomía'}
-  ];
+  public dropdown = [];
 
-  constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe ) { }
+  constructor(public authService: AuthService, public router: Router, private datePipe: DatePipe, private generalService: GeneralService ) { }
 
   ngOnInit(): void {
     this.type = localStorage.getItem('type');
@@ -52,35 +43,37 @@ export class LoginComponent implements OnInit {
 
   // Sign in as patient
   signInPatient() {
+    this.type = 'patient';
+    localStorage.setItem('type', this.type);
     this.currentModel = MPatient;
+    for (const key of this.currentModel) {
+      if (key.FK) {
+        this.loadData(key.FK);
+      }
+    }
     this.onCreate();
     this.signingUp = true;
     this.columns = this.getColumns();
     this.patientSignIn = true;
     this.hospitalPersonnelSignIn = false;
-    this.type = 'patient';
+
+  }
+  // Sign in as Hospital Personnel
+  signInHospitalPersonnel() {
+    this.type = 'doctor';
     localStorage.setItem('type', this.type);
+    this.signingUp = true;
+    this.currentModel = MPersonnel;
     for (const key of this.currentModel) {
       if (key.FK) {
         this.loadData(key.FK);
       }
     }
-  }
-  // Sign in as Hospital Personnel
-  signInHospitalPersonnel() {
-    this.signingUp = true;
-    this.currentModel = MPersonnel;
     this.onCreate();
     this.columns = this.getColumns();
     this.hospitalPersonnelSignIn = true;
     this.patientSignIn = false;
-    this.type = 'doctor';
-    localStorage.setItem('type', this.type);
-    for (const key of this.currentModel) {
-      if (key.FK) {
-        this.loadData(key.FK);
-      }
-    }
+
   }
 
 
@@ -97,11 +90,18 @@ export class LoginComponent implements OnInit {
   onCreate(): void {
     this.currentItem = {};
     for (const field of this.currentModel) {
-      this.currentItem[field.db] = '';
+      if (field.multiple && field.column) {
+        this.currentItem[field.column] = field.db;
+      }
+      if (field.db === 'Email' || field.db === 'Id' || field.db === 'FirstName' || field.db === 'LastName' ||
+        field.db === 'Phone' || field.db === 'Address' || field.db === 'Treatment' || field.db === 'Birthday') {
+        this.currentItem[field.db] = '';
+      }
     }
   }
 
   submit(email, password) {
+    console.log(this.currentItem);
     this.authService.SignUp(email, password, this.currentItem.Type).then(r => {
       this.currentItem.Birthday = this.datePipe.transform(this.currentItem.Birthday, 'yyyy/MM/dd');
       this.currentItem.StartDate = this.datePipe.transform(this.currentItem.StartDate, 'yyyy/MM/dd');
@@ -140,7 +140,7 @@ export class LoginComponent implements OnInit {
     let list;
     if (dropdown) {
       dropdown.forEach(e => {
-        this.dropdownList.push(e.Procedures);
+        this.dropdownList.push(e.Name);
       });
     }
     list = [fk, this.dropdownList];
@@ -161,7 +161,11 @@ export class LoginComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(fk) {
     this.dropdownLists = [];
-    this.getDropDownList(this.dropdown, fk);
+    this.generalService.getElements(fk).subscribe(dropDownData => {
+      this.dropdown = (dropDownData as any);
+      console.log(this.dropdown);
+      this.getDropDownList(this.dropdown, fk);
+    });
   }
 
 }

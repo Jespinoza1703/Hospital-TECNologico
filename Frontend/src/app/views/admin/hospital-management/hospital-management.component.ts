@@ -62,7 +62,7 @@ export class HospitalManagementComponent implements OnInit {
   // Deletes item
   onDelete(item): void {
     let PK: any;
-    for (const field of this.currentModel){
+    for (const field of this.currentModel) {
       if (field.PK) {
         PK = field.column;
         break;
@@ -152,8 +152,7 @@ export class HospitalManagementComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(data, fk) {
     this.dropdownLists = [];
-    const type = (fk + 'SP');
-    this.generalService.getData(type).subscribe(dropDownData => {
+    this.generalService.getData(fk).subscribe(dropDownData => {
       this.dropdown = (dropDownData as any);
       this.getDropDownList(this.dropdown, fk);
     });

@@ -6,12 +6,13 @@ import {IMedicalEquipment} from '../Interfaces/IMedicalEquipment';
 import {IBed} from '../Interfaces/IBed';
 import {IPersonnel} from '../Interfaces/IPersonnel';
 import {IMedicalProcedures} from '../Interfaces/IMedicalProcedures';
+import {IPathology} from '../Interfaces/IPathology';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
-  private url = 'http://localhost/Anton/api/';
+  private url = 'https://luciaapi.azurewebsites.net/api/';
 
   constructor(private http: HttpClient) { }
 
@@ -42,6 +43,9 @@ export class GeneralService {
       case 'Personnel':
         // observable =  this.httpGet<IPersonnel>(type);
         observable =  this.getData(type);
+        break;
+      case 'Pathologies':
+        observable =  this.httpGet<IPathology>(type);
         break;
       default:
         observable = {};

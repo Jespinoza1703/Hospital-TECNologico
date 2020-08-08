@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {MPatient} from '../../../models/AllModels';
+import {GeneralService} from '../../../services/general.service';
 
 @Component({
   selector: 'app-patient-creation',
@@ -16,24 +17,11 @@ export class PatientCreationComponent implements OnInit {
   public currentItem = null;
   public dropdownList: any = [];
   public dropdownLists = [];
-  public dropdown = [
-    {Procedures: 'Apendicectomía'},
-    {Procedures: 'Biopsia de mama'},
-    {Procedures: 'Cirugía de cataratas'},
-    {Procedures: 'Cesárea'},
-    {Procedures: 'Histerectomía'},
-    {Procedures: 'Cirugía para la lumbalgia'},
-    {Procedures: 'Mastectomía'},
-    {Procedures: 'Amigdalectomía'}
-  ];
-  constructor(public authService: AuthService) { }
+  public dropdown = [];
+  constructor(public authService: AuthService, private generalService: GeneralService) { }
 
   ngOnInit(): void {
-    for (const key of this.currentModel) {
-      if (key.FK) {
-        this.loadData(key.FK);
-      }
-    }
+
     this.onCreate();
   }
 
@@ -79,6 +67,11 @@ export class PatientCreationComponent implements OnInit {
     for (let i = 0; i < this.numberOfPathologies; i++) {
       this.numbers.push(i);
     }
+    for (const key of this.currentModel) {
+      if (key.FK) {
+        this.loadData(key.FK);
+      }
+    }
   }
 
 
@@ -92,7 +85,7 @@ export class PatientCreationComponent implements OnInit {
     let list;
     if (dropdown) {
       dropdown.forEach(e => {
-        this.dropdownList.push(e.Procedures);
+        this.dropdownList.push(e.Name);
       });
     }
     list = [fk, this.dropdownList];
@@ -113,7 +106,11 @@ export class PatientCreationComponent implements OnInit {
   // Loads data from server to render dropdowns
   loadData(fk) {
     this.dropdownLists = [];
-    this.getDropDownList(this.dropdown, fk);
+    this.generalService.getElements(fk).subscribe(dropDownData => {
+      this.dropdown = (dropDownData as any);
+      console.log(this.dropdown);
+      this.getDropDownList(this.dropdown, fk);
+    });
   }
 
 }
